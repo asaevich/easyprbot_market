@@ -1,3 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
+from market.models import Mask
+
+admin.site.register(Mask)
