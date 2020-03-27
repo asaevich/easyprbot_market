@@ -38,7 +38,7 @@ class Customer(models.Model):
 
 
 class Product(models.Model):
-    is_enable = models.BooleanField(default=True)
+    is_enable = models.BooleanField('Отображается', default=True)
     disabled_date = models.DateField(
         'Снят с публикации', null=True, blank=True)
     name = models.CharField('Название', max_length=50, unique=True,
@@ -64,7 +64,7 @@ class Mask(Product):
                                 on_delete=models.PROTECT)
 
     class Meta:
-        verbose_name = 'Маска'
+        verbose_name = 'Маску'
         verbose_name_plural = 'Маски'
 
     def __str__(self):

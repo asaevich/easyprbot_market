@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'market',
+    'market.apps.MarketConfig',
 ]
 
 MIDDLEWARE = [
@@ -78,6 +78,10 @@ WSGI_APPLICATION = 'easyprbot_market.wsgi.application'
 
 DATABASES = {
     'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db.sqlite3',
+    },
+    'global': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'easyprbot_market',
         'USER': 'easyprbot_admin',
