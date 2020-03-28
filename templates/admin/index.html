@@ -25,14 +25,6 @@
                 {% else %}
                 <td>&nbsp;</td>
                 {% endif %}
-
-                {% if model.admin_url %}
-                {% if not model.view_only %}
-                <td><a href="{{ model.admin_url }}" class="changelink">{% trans 'Change' %}</a></td>
-                {% endif %}
-                {% else %}
-                <td>&nbsp;</td>
-                {% endif %}
             </tr>
             {% endfor %}
         </table>
