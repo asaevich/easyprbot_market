@@ -1,0 +1,13 @@
+{% extends "admin/change_list.html" %}
+{% load i18n static admin_urls %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href='{% static "admin/css/product_changelist_extra.css" %}'>
+{% endblock %}
+
+{% block pretitle %}
+{% block backbtn %}<a href="{% url 'admin:app_list' app_name %}">Назад</a>{% endblock %}
+{% endblock %}
+
+{% block content_title %}{% endblock %}
