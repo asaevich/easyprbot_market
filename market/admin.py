@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.utils.html import mark_safe
+from django.conf import settings
 
 from market.models import (Mask, Filter, SalesStatistic, Order, Creator,
                            Category, Customer, ProductPhoto)
@@ -14,8 +15,12 @@ admin.site.site_header = 'Панель администратора'
 admin.site.index_title = 'Администрирование'
 
 
+class CustomModelAdmin(admin.ModelAdmin):
+    list_per_page = settings.LIST_PER_PAGE
+
+
 @admin.register(Mask)
-class MaskAdmin(admin.ModelAdmin):
+class MaskAdmin(CustomModelAdmin):
     list_display = ('name', 'creator', 'get_price', 'is_enable')
 
     def get_price(self, obj):
@@ -28,7 +33,7 @@ class MaskAdmin(admin.ModelAdmin):
 
 
 @admin.register(Filter)
-class FilterAdmin(admin.ModelAdmin):
+class FilterAdmin(CustomModelAdmin):
     list_display = ('name', 'creator', 'get_price', 'is_enable')
 
     def get_price(self, obj):
@@ -41,7 +46,7 @@ class FilterAdmin(admin.ModelAdmin):
 
 
 @admin.register(Order)
-class OrderAdmin(admin.ModelAdmin):
+class OrderAdmin(CustomModelAdmin):
     list_display = ('number', 'customer', 'amount')
 
     def has_add_permission(self, request):
@@ -52,7 +57,7 @@ class OrderAdmin(admin.ModelAdmin):
 
 
 @admin.register(SalesStatistic)
-class SalesStatisticAdmin(admin.ModelAdmin):
+class SalesStatisticAdmin(CustomModelAdmin):
     list_display = ('author', 'sold', 'amount', 'in_stock')
     list_display_links = None
     readonly_fields = ('author', 'sold', 'amount', 'in_stock')

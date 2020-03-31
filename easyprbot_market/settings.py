@@ -146,3 +146,5 @@ ADMIN_REORDER = (
 
     {'app': 'auth', 'models': ('auth.User', 'auth.Group')},
 )
+
+LIST_PER_PAGE = 20
