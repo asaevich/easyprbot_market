@@ -14,14 +14,6 @@
     padding: 10px 0;
 }
 
-#changelist .actions span.all, 
-#changelist .actions span.action-counter, 
-#changelist .actions span.clear, 
-#changelist .actions span.question {
-    display: block;
-    margin: 10px 0;
-}
-
 .field-name, .field-creator {
     width: 185px;
 }
