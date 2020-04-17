@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.utils.html import mark_safe
 from django.conf import settings
 
 from market.models import (Mask, Filter, SalesStatistic, Order, Creator,
@@ -19,30 +18,28 @@ class CustomModelAdmin(admin.ModelAdmin):
     list_per_page = settings.LIST_PER_PAGE
 
 
-@admin.register(Mask)
-class MaskAdmin(CustomModelAdmin):
+@admin.register(Mask, Filter)
+class ProductAdmin(CustomModelAdmin):
     list_display = ('name', 'creator', 'get_price', 'is_enable')
 
-    def get_price(self, obj):
-        if obj.discounted_price:
-            return mark_safe(f'<p>{obj.discounted_price} &#8381;</p>')
-        else:
-            return mark_safe(f'<p>{obj.price} &#8381;</p>')
+    def get_exclude(self, request, obj=None):
+        exclude = super(ProductAdmin, self).get_exclude(request, obj)
 
-    get_price.short_description = 'Цена'
+        if obj:
+            if not obj.disabled_date:
+                exclude = ('disabled_date',)
 
+        return exclude
 
-@admin.register(Filter)
-class FilterAdmin(CustomModelAdmin):
-    list_display = ('name', 'creator', 'get_price', 'is_enable')
+    def get_readonly_fields(self, request, obj=None):
+        readonly_fields = super(
+            ProductAdmin, self).get_readonly_fields(request, obj)
 
-    def get_price(self, obj):
-        if obj.discounted_price:
-            return mark_safe(f'<p>{obj.discounted_price} &#8381;</p>')
-        else:
-            return mark_safe(f'<p>{obj.price} &#8381;</p>')
+        if obj:
+            if obj.disabled_date:
+                readonly_fields = ('disabled_date',)
 
-    get_price.short_description = 'Цена'
+        return readonly_fields
 
 
 @admin.register(Order)

@@ -1,4 +1,6 @@
 from django.db import models
+from datetime import date
+from django.utils.html import mark_safe
 
 
 class Category(models.Model):
@@ -39,8 +41,8 @@ class Customer(models.Model):
 
 class Product(models.Model):
     is_enable = models.BooleanField('Отображается', default=True)
-    disabled_date = models.DateField(
-        'Снят с публикации', null=True, blank=True)
+    disabled_date = models.DateField('Снят с публикации',
+                                     null=True, blank=True)
     name = models.CharField('Название', max_length=50, unique=True,
                             blank=False, null=False)
     description = models.TextField('Описание', max_length=400,
@@ -50,6 +52,23 @@ class Product(models.Model):
                                          blank=True)
     video_link = models.URLField('Ссылка на видео', null=True, blank=True)
     category = models.ManyToManyField(Category, verbose_name='Категория')
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if self.is_enable:
+            self.disabled_date = None
+        else:
+            self.disabled_date = date.today()
+        super(Product, self).save(*args, **kwargs)
+
+    def get_price(self):
+        if self.discounted_price:
+            return mark_safe(f'<p>{self.discounted_price} &#8381;</p>')
+        else:
+            return mark_safe(f'<p>{self.price} &#8381;</p>')
+    get_price.short_description = 'Цена'
 
 
 class ProductPhoto(models.Model):
@@ -67,9 +86,6 @@ class Mask(Product):
         verbose_name = 'Маску'
         verbose_name_plural = 'Маски'
 
-    def __str__(self):
-        return self.name
-
 
 class Filter(Product):
     creator = models.ForeignKey(Creator, verbose_name='Создатель фильтра',
@@ -78,9 +94,6 @@ class Filter(Product):
     class Meta:
         verbose_name = 'Фильтр'
         verbose_name_plural = 'Фильтры'
-
-    def __str__(self):
-        return self.name
 
 
 class Order(models.Model):
