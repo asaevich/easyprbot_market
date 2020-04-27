@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Rubik:400,700,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>basket</title>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <div class="header-logo">
+          <img src="img/logo.jpg" alt="logo" class="header__logo" />
+          <div class="header-title">
+            <span class="header-text">Easyprbot</span>
+            <span class="header-link">@easyprbot</span>
+          </div>
+        </div>
+        <nav class="menu">
+          <ul class="navigation">
+            <a href="#" class="link-item"
+              ><li class="list-item">База&nbsp;блогеров</li></a
+            >
+            <a href="#" class="link-item"><li class="list-item">Отзывы</li></a>
+            <a href="#" class="link-item"
+              ><li class="list-item">ВП&nbsp;на&nbsp;завтра</li></a
+            >
+            <a href="#" class="link-item"
+              ><li class="list-item">Мой&nbsp;трекер</li></a
+            >
+            <a href="#" class="link-item"><li class="list-item">Гивы</li></a>
+            <a href="#" class="link-item"
+              ><li class="list-item">
+                Маркет&nbsp;масок&nbsp;и&nbsp;фильтров
+              </li></a
+            >
+          </ul>
+        </nav>
+      </header>
+    </div>
+    <div class="total-goods">
+      <div class="total-good">
+        <span class="total-text">
+          Всего 5 товаров <br />
+          На сумму: 15 590 ₽
+        </span>
+        <button class="payment-button pay-button" id="button-payment">
+          Оплатить
+        </button>
+      </div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <img src="img/card-img1.jpg" alt="card-img1" class="card-image" />
+        <div class="card-text">
+          <h3 class="card-title">Garlic Crown</h3>
+          <div class="price">
+            <span class="card-price">888 888 ₽</span>
+            <span class="card-price-discount">999 999 ₽</span>
+          </div>
+        </div>
+        <div class="buttons-card">
+          <a href="#" class="delete-card">Удалить</a>
+        </div>
+      </div>
+      <!-- /.card -->
+      <div class="card">
+        <img src="img/card-img2.jpg" alt="card-img1" class="card-image" />
+        <div class="card-text">
+          <h3 class="card-title">Green Goddes</h3>
+          <div class="price">
+            <span class="card-price">400 ₽</span>
+          </div>
+        </div>
+        <div class="buttons-card">
+          <a href="#" class="delete-card">Удалить</a>
+        </div>
+      </div>
+      <!-- /.card -->
+      <div class="card">
+        <img src="img/card-img3.jpg" alt="card-img1" class="card-image" />
+        <div class="card-text">
+          <h3 class="card-title">Осень красивая</h3>
+          <div class="price">
+            <span class="card-price">310 ₽</span>
+          </div>
+        </div>
+        <div class="buttons-card">
+          <a href="#" class="delete-card">Удалить</a>
+        </div>
+      </div>
+      <!-- /.card -->
+      <div class="card">
+        <img src="img/card-img4.jpg" alt="card-img1" class="card-image" />
+        <div class="card-text">
+          <h3 class="card-title">Снедурочка</h3>
+          <div class="price">
+            <span class="card-price">500 ₽</span>
+          </div>
+        </div>
+        <div class="buttons-card">
+          <a href="#" class="delete-card">Удалить</a>
+        </div>
+      </div>
+      <!-- /.card -->
+      <div class="card">
+        <img src="img/card-img1.jpg" alt="card-img1" class="card-image" />
+        <div class="card-text">
+          <h3 class="card-title">Garlic Crown</h3>
+          <div class="price">
+            <span class="card-price">888 888 ₽</span>
+            <span class="card-price-discount">999 999 ₽</span>
+          </div>
+        </div>
+        <div class="buttons-card">
+          <a href="#" class="delete-card">Удалить</a>
+        </div>
+      </div>
+      <!-- /.card -->
+    </div>
+    <!-- /.cards -->
+    <footer class="footer">
+      <a href="#" class="footer-link">Пользовательское соглашение</a>
+      <a href="#" class="footer-link">Политика конфиденциальности</a>
+      <a href="#" class="footer-link">Написать в техподдержку</a>
+    </footer>
+
+    <div class="modal-email">
+      <div class="modal-email-dialog">
+        <div class="header-email">
+          <h2 class="email-title">Введите e-mail</h2>
+          <button class="close-email">&times;</button>
+        </div>
+        <div class="email-body">
+          <span class="email-text">
+            Введите реальный e-mail адрес. После оплаты на него придет письмо с
+            вашим заказом и инструкцией по установке.
+          </span>
+          <form action="">
+            <div class="form-email">
+              <label for="" class="email-form-text">Ваш e-mail</label>
+              <input type="text" class="input-email" />
+              <button class="email-payment">
+                <span class="make-mask-button-text">Перейти к оплате</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const modalEmail = document.querySelector(".pay-button");
+      const getModalEmail = document.querySelector(".modal-email");
+      const closeModalEmail = document.querySelector(".close-email");
+
+      modalEmail.addEventListener("click", toggleModalEmail);
+      closeModalEmail.addEventListener("click", toggleModalEmail);
+
+      function toggleModalEmail() {
+        getModalEmail.classList.toggle("is-open-email");
+      }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  </body>
+</html>
