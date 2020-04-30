@@ -8,13 +8,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Rubik:400,700,900&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="{% static 'css/normalize.css' %}%" />
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}" />
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <title>{% block title %}{% endblock %}</title>
 </head>
 
 <body>
-    <div class=" container">
+    <div class="container">
         <header class="header">
             <div class="header-logo">
                 <img src="{% static 'img/logo.jpg' %}" alt="logo" class="header__logo" />
@@ -54,8 +54,7 @@
         </header>
     </div>
 
-    {% block content %}{% endblock %}
-    {% block make_product %}{% endblock %}
+    {% block content %}{% endblock %} {% block make_product %}{% endblock %}
 
     <footer class="footer">
         <a href="#" class="footer-link">Пользовательское соглашение</a>
@@ -74,8 +73,9 @@
                 <form action="#">
                     <div class="basket-form">
                         <div class="basket-search">
-                            <label for="№" class="search-text">Найдите маски и фильтры в нашем каталоге, добавьте их в
-                                корзину и возвращайтесь снова.</label>
+                            <label for="№" class="search-text">Найдите маски и фильтры в нашем каталоге,
+                                добавьте их в корзину и возвращайтесь
+                                снова.</label>
                             <button class="button-search-basket">
                                 <span class="make-mask-button-text">Найти маски и фильтры</span>
                             </button>
@@ -83,7 +83,8 @@
                         <div class="order-masks">
                             <label for="" class="order-text">
                                 Не нашли ничего подходящего? <br />
-                                Закажите свою маску или фильтр для Инстаграма. <br />
+                                Закажите свою маску или фильтр для
+                                Инстаграма. <br />
                             </label>
                             <button class="button-order-mask">
                                 <span class="make-mask-button-text">Заказать маску или фильтр</span>
@@ -95,11 +96,9 @@
         </div>
     </div>
 
-    {% block extramodals %}{% endblock %}
-    {% block fancybox %}{% endblock %}
+    {% block extramodals %}{% endblock %} {% block fancybox %}{% endblock %}
 
     <script src="js/main.js"></script>
-
 </body>
 
 </html>
