@@ -1,5 +1,10 @@
 {% extends "base-products.html" %}
 
-{% block title %}Маски{% endblock %}
+{% block title %}Маски{% endblock title %}
 
-{% block all_products_name %}Все маски{% endblock %}
+{% block pick_urls %}
+<a href="{% url 'mask_list' %}" class="masks-pick-first">Маски</a>
+<a href="{% url 'filters_list' %}" class="filters-pick-first">Фильтры</a>
+{% endblock pick_urls %}
+
+{% block all_products_name %}Все маски{% endblock all_products_name %}

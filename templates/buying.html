@@ -1,301 +1,185 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Rubik:400,700,900&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="css/normalize.css" />
-    <link rel="stylesheet" href="css/style.css" />
-    <title>Buying</title>
-  </head>
-  <body>
-    <div class="container">
-      <header class="header">
-        <div class="header-logo">
-          <img src="img/logo.jpg" alt="logo" class="header__logo" />
-          <div class="header-title">
-            <span class="header-text">Easyprbot</span>
-            <span class="header-link">@easyprbot</span>
-          </div>
-        </div>
-        <nav class="menu">
-          <ul class="navigation">
-            <a href="#" class="link-item"
-              ><li class="list-item">База&nbsp;блогеров</li></a
-            >
-            <a href="#" class="link-item"><li class="list-item">Отзывы</li></a>
-            <a href="#" class="link-item"
-              ><li class="list-item">ВП&nbsp;на&nbsp;завтра</li></a
-            >
-            <a href="#" class="link-item"
-              ><li class="list-item">Мой&nbsp;трекер</li></a
-            >
-            <a href="#" class="link-item"><li class="list-item">Гивы</li></a>
-            <a href="#" class="link-item"
-              ><li class="list-item">
-                Маркет&nbsp;масок&nbsp;и&nbsp;фильтров
-              </li></a
-            >
-          </ul>
-        </nav>
-        <button class="basket-button" id="basket-button">
-          <img src="img/basket.jpg" alt="basket" class="basket-img" />
-          <span class="text-button">Корзина</span>
-        </button>
-      </header>
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="main-buying">
+  <section class="buying-text">
+    <h2 class="buying-title">
+      Garlic crown тест большого <br />
+      заголовка в две строки
+    </h2>
+    <p class="buying-instruction">
+      Новая чесночная маска! Защищает от вирусов, <br />
+      бактерий, вурдалаков и кровопийц! <br />
+      <a href="#" class="instruction-modal" id="instruction-link">
+        Инструкция по установке
+      </a>
+    </p>
+    <div class="buying-order-in">
+      <div class="buying-price">
+        <span class="card-price buying__price">888 888 ₽</span>
+        <span class="card-price-discount">999 999 ₽</span>
+      </div>
+      <button class="add-cart">
+        <span class="add-card-button">В корзину</span>
+      </button>
     </div>
-    <div class="main-buying">
-      <section class="buying-text">
-        <h2 class="buying-title">
-          Garlic crown тест большого <br />
-          заголовка в две строки
-        </h2>
-        <p class="buying-instruction">
-          Новая чесночная маска! Защищает от вирусов, <br />
-          бактерий, вурдалаков и кровопийц! <br />
-          <a href="#" class="instruction-modal" id="instruction-link">
-            Инструкция по установке
-          </a>
-        </p>
-        <div class="buying-order-in">
-          <div class="buying-price">
-            <span class="card-price buying__price">888 888 ₽</span>
-            <span class="card-price-discount">999 999 ₽</span>
-          </div>
-          <button class="add-cart">
-            <span class="add-card-button">В корзину</span>
-          </button>
-        </div>
-      </section>
-      <div class="buying-card">
-        <img src="img/card-img1.jpg" alt="card 1" class="buy-cards" />
-        <img
-          src="img/card-img1.jpg"
-          alt="card 1"
-          class="buy-cards transparent-card"
-        />
-        <img src="img/card-img1.jpg" alt="card 1" class="buy-cards" />
+  </section>
+  <div class="buying-card">
+    <img src="img/card-img1.jpg" alt="card 1" class="buy-cards" />
+    <img src="img/card-img1.jpg" alt="card 1" class="buy-cards transparent-card" />
+    <img src="img/card-img1.jpg" alt="card 1" class="buy-cards" />
+  </div>
+</div>
+<section class="more-masks">
+  <h2 class="more-title">
+    Ещё маски в этой категории
+  </h2>
+</section>
+<div class="cards">
+  <div class="card">
+    <img src="img/card-img2.jpg" alt="card-img1" class="card-image" />
+    <div class="card-text">
+      <h3 class="card-title">Green Goddes</h3>
+      <div class="price">
+        <span class="card-price">400 ₽</span>
       </div>
     </div>
-    <section class="more-masks">
-      <h2 class="more-title">
-        Ещё маски в этой категории
+    <div class="buttons-card">
+      <button class="button-buy">
+        <span class="button-buy-text">
+          Купить
+        </span>
+      </button>
+      <a data-fancybox href="https://www.youtube.com/watch?v=ZQEM_vKH4gE" class="youtube-play">
+        <button class="button-play"></button>
+      </a>
+    </div>
+  </div>
+  <!-- /.card -->
+  <div class="card">
+    <img src="img/card-img3.jpg" alt="card-img1" class="card-image" />
+    <div class="card-text">
+      <h3 class="card-title">Осень красивая</h3>
+      <div class="price">
+        <span class="card-price">310 ₽</span>
+      </div>
+    </div>
+    <div class="buttons-card">
+      <button class="button-buy">
+        <span class="button-buy-text">
+          Купить
+        </span>
+      </button>
+      <a data-fancybox href="https://www.youtube.com/watch?v=JsNXswzfITo" class="youtube-play">
+        <button class="button-play"></button>
+      </a>
+    </div>
+  </div>
+  <!-- /.card -->
+  <div class="card">
+    <img src="img/card-img1.jpg" alt="card-img1" class="card-image" />
+    <div class="card-text">
+      <h3 class="card-title">Garlic Crown</h3>
+      <div class="price">
+        <span class="card-price">888 888 ₽</span>
+        <span class="card-price-discount">999 999 ₽</span>
+      </div>
+    </div>
+    <div class="buttons-card">
+      <button class="button-buy">
+        <span class="button-buy-text">
+          Купить
+        </span>
+      </button>
+      <a data-fancybox href="https://www.youtube.com/watch?v=4qEkhLnsgPs" class="youtube-play">
+        <button class="button-play"></button>
+      </a>
+    </div>
+  </div>
+  <!-- /.card -->
+  <div class="card">
+    <img src="img/card-img4.jpg" alt="card-img1" class="card-image" />
+    <div class="card-text">
+      <h3 class="card-title">Снедурочка</h3>
+      <div class="price">
+        <span class="card-price">500 ₽</span>
+      </div>
+    </div>
+    <div class="buttons-card">
+      <button class="button-buy">
+        <span class="button-buy-text">
+          Купить
+        </span>
+      </button>
+      <a data-fancybox href="https://www.youtube.com/watch?v=POb02mjj2zE" class="youtube-play">
+        <button class="button-play"></button>
+      </a>
+    </div>
+  </div>
+  <!-- /.card -->
+</div>
+<!-- /.cards -->
+{% block make_product %}
+<div class="make-masks">
+  <section class="make-mask">
+    <p class="make-mask-text">
+      Не нашли ничего подходящего? <br />
+      Закажите&nbsp;свою&nbsp;маску&nbsp;или&nbsp;фильтр&nbsp;для&nbsp;Инстаграма.
+    </p>
+    <button class="make-mask-button">
+      <span class="make-mask-button-text">
+        Заказать маску или фильтр
+      </span>
+    </button>
+  </section>
+</div>
+{% endblock make_product %}
+{% endblock content %}
+
+<footer class="footer">
+  <a href="#" class="footer-link">Пользовательское соглашение</a>
+  <a href="#" class="footer-link">Политика конфиденциальности</a>
+  <a href="#" class="footer-link">Написать в техподдержку</a>
+</footer>
+
+{% block modals %}
+{{ block.super }}
+<div class="modal-instruction">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <h2 class="modal-title">
+        Видео-инструкция по базе
       </h2>
-    </section>
-    <div class="cards">
-      <div class="card">
-        <img src="img/card-img2.jpg" alt="card-img1" class="card-image" />
-        <div class="card-text">
-          <h3 class="card-title">Green Goddes</h3>
-          <div class="price">
-            <span class="card-price">400 ₽</span>
-          </div>
-        </div>
-        <div class="buttons-card">
-          <button class="button-buy">
-            <span class="button-buy-text">
-              Купить
-            </span>
-          </button>
-          <a
-            data-fancybox
-            href="https://www.youtube.com/watch?v=ZQEM_vKH4gE"
-            class="youtube-play"
-          >
-            <button class="button-play"></button>
-          </a>
-        </div>
-      </div>
-      <!-- /.card -->
-      <div class="card">
-        <img src="img/card-img3.jpg" alt="card-img1" class="card-image" />
-        <div class="card-text">
-          <h3 class="card-title">Осень красивая</h3>
-          <div class="price">
-            <span class="card-price">310 ₽</span>
-          </div>
-        </div>
-        <div class="buttons-card">
-          <button class="button-buy">
-            <span class="button-buy-text">
-              Купить
-            </span>
-          </button>
-          <a
-            data-fancybox
-            href="https://www.youtube.com/watch?v=JsNXswzfITo"
-            class="youtube-play"
-          >
-            <button class="button-play"></button>
-          </a>
-        </div>
-      </div>
-      <!-- /.card -->
-      <div class="card">
-        <img src="img/card-img1.jpg" alt="card-img1" class="card-image" />
-        <div class="card-text">
-          <h3 class="card-title">Garlic Crown</h3>
-          <div class="price">
-            <span class="card-price">888 888 ₽</span>
-            <span class="card-price-discount">999 999 ₽</span>
-          </div>
-        </div>
-        <div class="buttons-card">
-          <button class="button-buy">
-            <span class="button-buy-text">
-              Купить
-            </span>
-          </button>
-          <a
-            data-fancybox
-            href="https://www.youtube.com/watch?v=4qEkhLnsgPs"
-            class="youtube-play"
-          >
-            <button class="button-play"></button>
-          </a>
-        </div>
-      </div>
-      <!-- /.card -->
-      <div class="card">
-        <img src="img/card-img4.jpg" alt="card-img1" class="card-image" />
-        <div class="card-text">
-          <h3 class="card-title">Снедурочка</h3>
-          <div class="price">
-            <span class="card-price">500 ₽</span>
-          </div>
-        </div>
-        <div class="buttons-card">
-          <button class="button-buy">
-            <span class="button-buy-text">
-              Купить
-            </span>
-          </button>
-          <a
-            data-fancybox
-            href="https://www.youtube.com/watch?v=POb02mjj2zE"
-            class="youtube-play"
-          >
-            <button class="button-play"></button>
-          </a>
-        </div>
-      </div>
-      <!-- /.card -->
+      <button class="close-instruction">&times;</button>
     </div>
-    <!-- /.cards -->
-    <div class="make-masks">
-      <section class="make-mask">
-        <p class="make-mask-text">
-          Не нашли ничего подходящего? <br />
-          Закажите&nbsp;свою&nbsp;маску&nbsp;или&nbsp;фильтр&nbsp;для&nbsp;Инстаграма.
-        </p>
-        <button class="make-mask-button">
-          <span class="make-mask-button-text">
-            Заказать маску или фильтр
-          </span>
-        </button>
-      </section>
+    <div class="instruction-video">
+      <iframe width="500" height="258" src="https://www.youtube.com/embed/lzgmAAAvj4o" frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
-    <footer class="footer">
-      <a href="#" class="footer-link">Пользовательское соглашение</a>
-      <a href="#" class="footer-link">Политика конфиденциальности</a>
-      <a href="#" class="footer-link">Написать в техподдержку</a>
-    </footer>
-
-    <div class="modal-instruction">
-      <div class="modal-dialog">
-        <div class="modal-header">
-          <h2 class="modal-title">
-            Видео-инструкция по базе
-          </h2>
-          <button class="close-instruction">&times;</button>
-        </div>
-        <div class="instruction-video">
-          <iframe
-            width="500"
-            height="258"
-            src="https://www.youtube.com/embed/lzgmAAAvj4o"
-            frameborder="0"
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
-        </div>
-        <div class="instruction-list">
-          <ul>
-            <li class="list-instruction">
-              1. Разнообразный и богатый опыт укрепление и развитие структуры
-              требуют определения
-            </li>
-            <li class="list-instruction">2. Уточнения новых предложений</li>
-            <li class="list-instruction">
-              3. Разнообразный и богатый опыт сложившаяся структура
-            </li>
-            <li class="list-instruction">
-              4. Организации влечет за собой процесс внедрения
-            </li>
-            <li class="list-instruction">
-              5. Модернизации направлений прогрессивного развития
-            </li>
-            <li class="list-instruction">
-              6. Задача организации, в особенности же дальнейшее развитие
-              различных форм деятельности играет важную роль в формировании
-              направлений прогрессивного развития.
-            </li>
-          </ul>
-        </div>
-      </div>
+    <div class="instruction-list">
+      <ul>
+        <li class="list-instruction">
+          1. Разнообразный и богатый опыт укрепление и развитие структуры
+          требуют определения
+        </li>
+        <li class="list-instruction">2. Уточнения новых предложений</li>
+        <li class="list-instruction">
+          3. Разнообразный и богатый опыт сложившаяся структура
+        </li>
+        <li class="list-instruction">
+          4. Организации влечет за собой процесс внедрения
+        </li>
+        <li class="list-instruction">
+          5. Модернизации направлений прогрессивного развития
+        </li>
+        <li class="list-instruction">
+          6. Задача организации, в особенности же дальнейшее развитие
+          различных форм деятельности играет важную роль в формировании
+          направлений прогрессивного развития.
+        </li>
+      </ul>
     </div>
-    <div class="modal-basket">
-      <div class="modal-basket-dialog">
-        <div class="header-basket">
-          <h2 class="basket-title">
-            Ваша корзина пуста
-          </h2>
-          <button class="close-basket">&times;</button>
-        </div>
-        <div class="basket-body">
-          <form action="#">
-            <div class="basket-form">
-              <div class="basket-search">
-                <label for="№" class="search-text"
-                  >Найдите маски и фильтры в нашем каталоге, добавьте их в
-                  корзину и возвращайтесь снова.</label
-                >
-                <button class="button-search-basket">
-                  <span class="make-mask-button-text"
-                    >Найти маски и фильтры</span
-                  >
-                </button>
-              </div>
-              <div class="order-masks">
-                <label for="" class="order-text">
-                  Не нашли ничего подходящего? <br />
-                  Закажите свою маску или фильтр для Инстаграма. <br />
-                </label>
-                <button class="button-order-mask">
-                  <span class="make-mask-button-text"
-                    >Заказать маску или фильтр</span
-                  >
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css"
-    />
-    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-    <script src="js/main.js"></script>
-  </body>
-</html>
+  </div>
+</div>
+{% endblock modals %}

@@ -1,13 +1,13 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
 <section class="pick">
-    <a href="#" class="masks-pick-first">Маски</a>
-    <a href="#" class="filters-pick-first">Фильтры</a>
-    <span class="instruction"
-        >Маски и фильтры продаются в единственном экземпляре.
+    {% block pick_urls %}{% endblock pick_urls %}
+    <span class="instruction">Маски и фильтры продаются в единственном экземпляре.
         <a href="#" class="instruction-modal" id="instruction-link">
             Инструкция по установке.
-        </a></span
-    >
+        </a></span>
 </section>
 <section class="select-category">
     <div class="select-container">
@@ -35,11 +35,7 @@
 </section>
 <div class="cards">
     <div class="card">
-        <img
-            src="{% static 'img/card-img1.jpg' %}"
-            alt="card-img1"
-            class="card-image"
-        />
+        <img src="{% static 'img/card-img1.jpg' %}" alt="card-img1" class="card-image" />
         <div class="card-text">
             <h3 class="card-title">Garlic Crown</h3>
             <div class="price">
@@ -53,22 +49,14 @@
                     Купить
                 </span>
             </button>
-            <a
-                data-fancybox
-                href="https://www.youtube.com/watch?v=4qEkhLnsgPs"
-                class="youtube-play"
-            >
+            <a data-fancybox href="https://www.youtube.com/watch?v=4qEkhLnsgPs" class="youtube-play">
                 <button class="button-play"></button>
             </a>
         </div>
     </div>
     <!-- /.card -->
     <div class="card">
-        <img
-            src="{% static 'img/card-img2.jpg' %}"
-            alt="card-img1"
-            class="card-image"
-        />
+        <img src="{% static 'img/card-img2.jpg' %}" alt="card-img1" class="card-image" />
         <div class="card-text">
             <h3 class="card-title">Green Goddes</h3>
             <div class="price">
@@ -81,22 +69,14 @@
                     Купить
                 </span>
             </button>
-            <a
-                data-fancybox
-                href="https://www.youtube.com/watch?v=ZQEM_vKH4gE"
-                class="youtube-play"
-            >
+            <a data-fancybox href="https://www.youtube.com/watch?v=ZQEM_vKH4gE" class="youtube-play">
                 <button class="button-play"></button>
             </a>
         </div>
     </div>
     <!-- /.card -->
     <div class="card">
-        <img
-            src="{% static 'img/card-img3.jpg' %}"
-            alt="card-img1"
-            class="card-image"
-        />
+        <img src="{% static 'img/card-img3.jpg' %}" alt="card-img1" class="card-image" />
         <div class="card-text">
             <h3 class="card-title">Осень красивая</h3>
             <div class="price">
@@ -109,11 +89,7 @@
                     Купить
                 </span>
             </button>
-            <a
-                data-fancybox
-                href="https://www.youtube.com/watch?v=JsNXswzfITo"
-                class="youtube-play"
-            >
+            <a data-fancybox href="https://www.youtube.com/watch?v=JsNXswzfITo" class="youtube-play">
                 <button class="button-play"></button>
             </a>
         </div>
@@ -133,11 +109,7 @@
                     Купить
                 </span>
             </button>
-            <a
-                data-fancybox
-                href="https://www.youtube.com/watch?v=POb02mjj2zE"
-                class="youtube-play"
-            >
+            <a data-fancybox href="https://www.youtube.com/watch?v=POb02mjj2zE" class="youtube-play">
                 <button class="button-play"></button>
             </a>
         </div>
@@ -157,11 +129,7 @@
                     Купить
                 </span>
             </button>
-            <a
-                data-fancybox
-                href="https://www.youtube.com/watch?v=2zWzaRXyfSc"
-                class="youtube-play"
-            >
+            <a data-fancybox href="https://www.youtube.com/watch?v=2zWzaRXyfSc" class="youtube-play">
                 <button class="button-play"></button>
             </a>
         </div>
@@ -181,11 +149,7 @@
                     Купить
                 </span>
             </button>
-            <a
-                data-fancybox
-                href="https://www.youtube.com/watch?v=uCUnphNkfro"
-                class="youtube-play"
-            >
+            <a data-fancybox href="https://www.youtube.com/watch?v=uCUnphNkfro" class="youtube-play">
                 <button class="button-play"></button>
             </a>
         </div>
@@ -205,11 +169,7 @@
                     Купить
                 </span>
             </button>
-            <a
-                data-fancybox
-                href="https://www.youtube.com/watch?v=e_tNF20oIz0"
-                class="youtube-play"
-            >
+            <a data-fancybox href="https://www.youtube.com/watch?v=e_tNF20oIz0" class="youtube-play">
                 <button class="button-play"></button>
             </a>
         </div>
@@ -229,11 +189,7 @@
                     Купить
                 </span>
             </button>
-            <a
-                data-fancybox
-                href="https://www.youtube.com/watch?v=YOPBdrGfNJI"
-                class="youtube-play"
-            >
+            <a data-fancybox href="https://www.youtube.com/watch?v=YOPBdrGfNJI" class="youtube-play">
                 <button class="button-play"></button>
             </a>
         </div>
@@ -241,7 +197,7 @@
     <!-- /.card -->
 </div>
 <!-- /.cards -->
-{% endblock %} {% block make_product %}
+{% block make_product %}
 <div class="make-masks">
     <section class="make-mask">
         <p class="make-mask-text">
@@ -255,7 +211,11 @@
         </button>
     </section>
 </div>
-{% endblock %} {% block extramodals %}
+{% endblock make_product %}
+{% endblock content %}
+
+{% block modals %}
+{{ block.super }}
 <div class="modal-instruction">
     <div class="modal-dialog">
         <div class="modal-header">
@@ -265,14 +225,9 @@
             <button class="close-instruction">&times;</button>
         </div>
         <div class="instruction-video">
-            <iframe
-                width="500"
-                height="258"
-                src="https://www.youtube.com/embed/lzgmAAAvj4o"
-                frameborder="0"
+            <iframe width="500" height="258" src="https://www.youtube.com/embed/lzgmAAAvj4o" frameborder="0"
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-            ></iframe>
+                allowfullscreen></iframe>
         </div>
         <div class="instruction-list">
             <ul>
@@ -299,11 +254,10 @@
         </div>
     </div>
 </div>
-{% endblock %} {% block fancybox %}
+{% endblock modals %}
+
+{% block fancybox %}
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
-<link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css"
-/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
 <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-{% endblock %}
+{% endblock fancybox %}

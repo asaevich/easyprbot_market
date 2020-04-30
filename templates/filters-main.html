@@ -1,0 +1,10 @@
+{% extends "base-products.html" %}
+
+{% block title %}Фильтры{% endblock %}
+
+{% block pick_urls %}
+<a href="{% url 'mask_list' %}" class="masks-pick-second">Маски</a>
+<a href="{% url 'filters_list' %}" class="filters-pick-second">Фильтры</a>
+{% endblock pick_urls %}
+
+{% block all_products_name %}Все фильтры{% endblock %}

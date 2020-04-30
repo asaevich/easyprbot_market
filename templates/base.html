@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Rubik:400,700,900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="{% static 'css/normalize.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?" />
     <title>{% block title %}{% endblock %}</title>
 </head>
 
@@ -47,20 +47,26 @@
                     </a>
                 </ul>
             </nav>
+            {% block basket_btn %}
             <button class="basket-button" id="basket-button">
                 <img src="{% static 'img/basket.jpg' %}" alt="basket" class="basket-img" />
                 <span class="text-button">Корзина</span>
             </button>
+            {% endblock basket_btn %}
         </header>
     </div>
 
-    {% block content %}{% endblock %} {% block make_product %}{% endblock %}
+    {% block content %}
+    {% block make_product %}{% endblock make_product %}
+    {% endblock content %}
 
     <footer class="footer">
         <a href="#" class="footer-link">Пользовательское соглашение</a>
         <a href="#" class="footer-link">Политика конфиденциальности</a>
         <a href="#" class="footer-link">Написать в техподдержку</a>
     </footer>
+
+    {% block modals %}
     <div class="modal-basket">
         <div class="modal-basket-dialog">
             <div class="header-basket">
@@ -95,10 +101,17 @@
             </div>
         </div>
     </div>
+    {% endblock modals %}
 
-    {% block extramodals %}{% endblock %} {% block fancybox %}{% endblock %}
+    {% block fancybox %}
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    {% endblock fancybox %}
 
+    {% block scripts %}
     <script src="js/main.js"></script>
+    {% endblock scripts %}
 </body>
 
 </html>

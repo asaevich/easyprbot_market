@@ -363,7 +363,7 @@
   padding: 8px 20px 7px 20px;
   border-radius: 5px;
   outline: none;
-  background: #ffffff url("/img/youtube.svg") center no-repeat;
+  background: #ffffff url("/static/img/youtube.svg") center no-repeat;
   cursor: pointer;
 }
 .make-masks {
