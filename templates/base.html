@@ -1,105 +1,122 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css?family=Rubik:400,700,900&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="{% static 'css/normalize.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+        <title>{% block title %}{% endblock %}</title>
+    </head>
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Rubik:400,700,900&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="{% static 'css/normalize.css' }%" />
-    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-    <title>{% block title %}{% endblock %}</title>
-</head>
+    <body>
+        <div class="container">
+            <header class="header">
+                <div class="header-logo">
+                    <img
+                        src="{% static 'img/logo.jpg' %}"
+                        alt="logo"
+                        class="header__logo"
+                    />
+                    <div class="header-title">
+                        <span class="header-text">Easyprbot</span>
+                        <span class="header-link">@easyprbot</span>
+                    </div>
+                </div>
+                <nav class="menu">
+                    <ul class="navigation">
+                        <a href="#" class="link-item">
+                            <li class="list-item">База&nbsp;блогеров</li>
+                        </a>
+                        <a href="#" class="link-item">
+                            <li class="list-item">Отзывы</li>
+                        </a>
+                        <a href="#" class="link-item">
+                            <li class="list-item">ВП&nbsp;на&nbsp;завтра</li>
+                        </a>
+                        <a href="#" class="link-item">
+                            <li class="list-item">Мой&nbsp;трекер</li>
+                        </a>
+                        <a href="#" class="link-item">
+                            <li class="list-item">Гивы</li>
+                        </a>
+                        <a href="#" class="link-item">
+                            <li class="list-item">
+                                Маркет&nbsp;масок&nbsp;и&nbsp;фильтров
+                            </li>
+                        </a>
+                    </ul>
+                </nav>
+                <button class="basket-button" id="basket-button">
+                    <img
+                        src="{% static 'img/basket.jpg' %}"
+                        alt="basket"
+                        class="basket-img"
+                    />
+                    <span class="text-button">Корзина</span>
+                </button>
+            </header>
+        </div>
 
-<body>
-    <div class=" container">
-        <header class="header">
-            <div class="header-logo">
-                <img src="{% static 'img/logo.jpg' %}" alt="logo" class="header__logo" />
-                <div class="header-title">
-                    <span class="header-text">Easyprbot</span>
-                    <span class="header-link">@easyprbot</span>
+        {% block content %}{% endblock %} {% block make_product %}{% endblock %}
+
+        <footer class="footer">
+            <a href="#" class="footer-link">Пользовательское соглашение</a>
+            <a href="#" class="footer-link">Политика конфиденциальности</a>
+            <a href="#" class="footer-link">Написать в техподдержку</a>
+        </footer>
+        <div class="modal-basket">
+            <div class="modal-basket-dialog">
+                <div class="header-basket">
+                    <h2 class="basket-title">
+                        Ваша корзина пуста
+                    </h2>
+                    <button class="close-basket">&times;</button>
+                </div>
+                <div class="basket-body">
+                    <form action="#">
+                        <div class="basket-form">
+                            <div class="basket-search">
+                                <label for="№" class="search-text"
+                                    >Найдите маски и фильтры в нашем каталоге,
+                                    добавьте их в корзину и возвращайтесь
+                                    снова.</label
+                                >
+                                <button class="button-search-basket">
+                                    <span class="make-mask-button-text"
+                                        >Найти маски и фильтры</span
+                                    >
+                                </button>
+                            </div>
+                            <div class="order-masks">
+                                <label for="" class="order-text">
+                                    Не нашли ничего подходящего? <br />
+                                    Закажите свою маску или фильтр для
+                                    Инстаграма. <br />
+                                </label>
+                                <button class="button-order-mask">
+                                    <span class="make-mask-button-text"
+                                        >Заказать маску или фильтр</span
+                                    >
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <nav class="menu">
-                <ul class="navigation">
-                    <a href="#" class="link-item">
-                        <li class="list-item">База&nbsp;блогеров</li>
-                    </a>
-                    <a href="#" class="link-item">
-                        <li class="list-item">Отзывы</li>
-                    </a>
-                    <a href="#" class="link-item">
-                        <li class="list-item">ВП&nbsp;на&nbsp;завтра</li>
-                    </a>
-                    <a href="#" class="link-item">
-                        <li class="list-item">Мой&nbsp;трекер</li>
-                    </a>
-                    <a href="#" class="link-item">
-                        <li class="list-item">Гивы</li>
-                    </a>
-                    <a href="#" class="link-item">
-                        <li class="list-item">
-                            Маркет&nbsp;масок&nbsp;и&nbsp;фильтров
-                        </li>
-                    </a>
-                </ul>
-            </nav>
-            <button class="basket-button" id="basket-button">
-                <img src="{% static 'img/basket.jpg' %}" alt="basket" class="basket-img" />
-                <span class="text-button">Корзина</span>
-            </button>
-        </header>
-    </div>
-
-    {% block content %}{% endblock %}
-    {% block make_product %}{% endblock %}
-
-    <footer class="footer">
-        <a href="#" class="footer-link">Пользовательское соглашение</a>
-        <a href="#" class="footer-link">Политика конфиденциальности</a>
-        <a href="#" class="footer-link">Написать в техподдержку</a>
-    </footer>
-    <div class="modal-basket">
-        <div class="modal-basket-dialog">
-            <div class="header-basket">
-                <h2 class="basket-title">
-                    Ваша корзина пуста
-                </h2>
-                <button class="close-basket">&times;</button>
-            </div>
-            <div class="basket-body">
-                <form action="#">
-                    <div class="basket-form">
-                        <div class="basket-search">
-                            <label for="№" class="search-text">Найдите маски и фильтры в нашем каталоге, добавьте их в
-                                корзину и возвращайтесь снова.</label>
-                            <button class="button-search-basket">
-                                <span class="make-mask-button-text">Найти маски и фильтры</span>
-                            </button>
-                        </div>
-                        <div class="order-masks">
-                            <label for="" class="order-text">
-                                Не нашли ничего подходящего? <br />
-                                Закажите свою маску или фильтр для Инстаграма. <br />
-                            </label>
-                            <button class="button-order-mask">
-                                <span class="make-mask-button-text">Заказать маску или фильтр</span>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
         </div>
-    </div>
 
-    {% block extramodals %}{% endblock %}
-    {% block fancybox %}{% endblock %}
+        {% block extramodals %}{% endblock %} {% block fancybox %}{% endblock %}
 
-    <script src="js/main.js"></script>
-
-</body>
-
+        <script src="js/main.js"></script>
+    </body>
 </html>
