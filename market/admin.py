@@ -21,15 +21,33 @@ class CustomModelAdmin(admin.ModelAdmin):
 @admin.register(Mask, Filter)
 class ProductAdmin(CustomModelAdmin):
     list_display = ('name', 'creator', 'get_price', 'is_enable')
+    fieldsets = (
+        (None, {
+            'fields': ('is_enable', 'name', 'description', 'price',
+                       'discounted_price', 'video_link')
+        }),
+        ('Поля ниже не отображаются в карточке', {
+            'fields': ('category', 'creator')
+        }),
+    )
 
-    def get_exclude(self, request, obj=None):
-        exclude = super(ProductAdmin, self).get_exclude(request, obj)
+    def get_fieldsets(self, request, obj=None):
+        fieldsets = super(ProductAdmin, self).get_fieldsets(request, obj)
 
         if obj:
-            if not obj.disabled_date:
-                exclude = ('disabled_date',)
+            if obj.disabled_date:
+                fieldsets = (
+                    (None, {
+                        'fields': ('is_enable', 'disabled_date', 'name',
+                                   'description', 'price', 'discounted_price',
+                                   'video_link')
+                    }),
+                    ('Поля ниже не отображаются в карточке', {
+                        'fields': ('category', 'creator')
+                    }),
+                )
 
-        return exclude
+        return fieldsets
 
     def get_readonly_fields(self, request, obj=None):
         readonly_fields = super(
