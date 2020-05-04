@@ -1,132 +1,48 @@
-<!DOCTYPE html>
-<html lang="ru">
+{% extends "base.html" %}
+{% load static %}
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Payment</title>
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css?family=Rubik:400,700,900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/normalize.css" />
-  <link rel="stylesheet" href="css/style.css" />
-</head>
-
-<body>
-  <div class="container">
-    <header class="header">
-      <div class="header-logo">
-        <img src="img/logo.jpg" alt="logo" class="header__logo" />
-        <div class="header-title">
-          <span class="header-text">Easyprbot</span>
-          <span class="header-link">@easyprbot</span>
-        </div>
-      </div>
-      <nav class="menu">
-        <ul class="navigation">
-          <a href="#" class="link-item">
-            <li class="list-item">База&nbsp;блогеров</li>
-          </a>
-          <a href="#" class="link-item">
-            <li class="list-item">Отзывы</li>
-          </a>
-          <a href="#" class="link-item">
-            <li class="list-item">ВП&nbsp;на&nbsp;завтра</li>
-          </a>
-          <a href="#" class="link-item">
-            <li class="list-item">Мой&nbsp;трекер</li>
-          </a>
-          <a href="#" class="link-item">
-            <li class="list-item">Гивы</li>
-          </a>
-          <a href="#" class="link-item">
-            <li class="list-item">
-              Маркет&nbsp;масок&nbsp;и&nbsp;фильтров
-            </li>
-          </a>
-        </ul>
-      </nav>
-      <button class="basket-button" id="basket-button">
-        <img src="img/basket.jpg" alt="basket" class="basket-img" />
-        <span class="text-button">Корзина</span>
+{% block content %}
+<div class="container-payment">
+  <div class="successful-payment">
+    <div class="payment-header">
+      <img src="img/done_icon.svg" alt="done" class="done-icon" />
+      <h1 class="paymet-title">
+        Оплата совершена, ожидайте письмо на указанную почту
+      </h1>
+    </div>
+    <div class="payment-body">
+      <p class="payment-text">
+        Если вам не пришло письмо, проверьте папку спам. В случае, если
+        письмо не пришло вам на почту, напишите нам на
+        <span class="payment-link">agency@mitroshina.org</span> <br /><br />
+        <span class="payment-bold">
+          Обязательно укажите ваш номер заказа — 115
+        </span>
+      </p>
+      <button class="payment-button">
+        <span class="payment-button-text">
+          На главную
+        </span>
       </button>
-    </header>
-  </div>
-  <div class="container-payment">
-    <div class="successful-payment">
-      <div class="payment-header">
-        <img src="img/done_icon.svg" alt="done" class="done-icon" />
-        <h1 class="paymet-title">
-          Оплата совершена, ожидайте письмо на указанную почту
-        </h1>
-      </div>
-      <div class="payment-body">
-        <p class="payment-text">
-          Если вам не пришло письмо, проверьте папку спам. В случае, если
-          письмо не пришло вам на почту, напишите нам на
-          <span class="payment-link">agency@mitroshina.org</span> <br /><br />
-          <span class="payment-bold">
-            Обязательно укажите ваш номер заказа — 115
-          </span>
-        </p>
-        <button class="payment-button">
-          <span class="payment-button-text">
-            На главную
-          </span>
-        </button>
-      </div>
     </div>
   </div>
-  <footer class="footer">
-    <a href="#" class="footer-link">Пользовательское соглашение</a>
-    <a href="#" class="footer-link">Политика конфиденциальности</a>
-    <a href="#" class="footer-link">Написать в техподдержку</a>
-  </footer>
-  <div class="modal-basket">
-    <div class="modal-basket-dialog">
-      <div class="header-basket">
-        <h2 class="basket-title">
-          Ваша корзина пуста
-        </h2>
-        <button class="close-basket">&times;</button>
-      </div>
-      <div class="basket-body">
-        <form action="#">
-          <div class="basket-form">
-            <div class="basket-search">
-              <label for="№" class="search-text">Найдите маски и фильтры в нашем каталоге, добавьте их в
-                корзину и возвращайтесь снова.</label>
-              <button class="button-search-basket">
-                <span class="make-mask-button-text">Найти маски и фильтры</span>
-              </button>
-            </div>
-            <div class="order-masks">
-              <label for="" class="order-text">
-                Не нашли ничего подходящего? <br />
-                Закажите свою маску или фильтр для Инстаграма. <br />
-              </label>
-              <button class="button-order-mask">
-                <span class="make-mask-button-text">Заказать маску или фильтр</span>
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
+</div>
+{% endblock content %}
 
-  <script>
-    const modalBasket = document.getElementById("basket-button");
-    const getModalBasket = document.querySelector(".modal-basket");
-    const closeModalBasket = document.querySelector(".close-basket");
+{% block fancybox %}{% endblock fancybox %}
 
-    modalBasket.addEventListener("click", toggleModalBasket);
-    closeModalBasket.addEventListener("click", toggleModalBasket);
+{% block scripts %}
+{{ block.super }}
+<script>
+  const modalBasket = document.getElementById("basket-button");
+  const getModalBasket = document.querySelector(".modal-basket");
+  const closeModalBasket = document.querySelector(".close-basket");
 
-    function toggleModalBasket() {
-      getModalBasket.classList.toggle("is-open-basket");
-    }
-  </script>
-  <script src="js/main.js"></script>
-</body>
+  modalBasket.addEventListener("click", toggleModalBasket);
+  closeModalBasket.addEventListener("click", toggleModalBasket);
 
-</html>
+  function toggleModalBasket() {
+    getModalBasket.classList.toggle("is-open-basket");
+  }
+</script>
+{% endblock scripts %}
