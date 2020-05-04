@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import date
 from django.utils.html import mark_safe
+from django.core.exceptions import ValidationError
 
 
 class Category(models.Model):
@@ -41,8 +42,8 @@ class Customer(models.Model):
 
 class Product(models.Model):
     is_enable = models.BooleanField('Отображается', default=True)
-    disabled_date = models.DateField('Снят с публикации',
-                                     null=True, blank=True)
+    disabled_date = models.DateField('Товар снят с публикации',
+                                     null=True, blank=True, editable=False)
     name = models.CharField('Название', max_length=50, unique=True,
                             blank=False, null=False)
     description = models.TextField('Описание', max_length=400,
@@ -53,6 +54,10 @@ class Product(models.Model):
     video_link = models.URLField('Ссылка на видео', null=True, blank=True)
     category = models.ManyToManyField(Category, verbose_name='Категория')
 
+    class Meta:
+        verbose_name = 'Товар'
+        verbose_name_plural = 'Товары'
+
     def __str__(self):
         return self.name
 
@@ -62,6 +67,14 @@ class Product(models.Model):
         else:
             self.disabled_date = date.today()
         super(Product, self).save(*args, **kwargs)
+
+    def clean(self):
+        if self.price < 0:
+            raise ValidationError('Цена не может быть отрицательной')
+
+        if self.discounted_price > self.price:
+            raise ValidationError(
+                'Цена со скидкой не может быть больше обычной цены')
 
     def get_price(self):
         if self.discounted_price:
@@ -74,8 +87,8 @@ class Product(models.Model):
 class ProductPhoto(models.Model):
     photo = models.ImageField('Загрузка фото', upload_to='products/',
                               null=False)
-    product = models.ForeignKey(Product, verbose_name='Товар',
-                                on_delete=models.PROTECT)
+    # product = models.ForeignKey(Product, verbose_name='Товар',
+    #                            on_delete=models.PROTECT, related_name='photo')
 
 
 class Mask(Product):
