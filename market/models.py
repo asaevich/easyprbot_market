@@ -2,6 +2,7 @@ from django.db import models
 from datetime import date
 from django.utils.html import mark_safe
 from django.core.exceptions import ValidationError
+from os.path import basename
 
 
 class Category(models.Model):
@@ -69,10 +70,10 @@ class Product(models.Model):
         super(Product, self).save(*args, **kwargs)
 
     def clean(self):
-        if self.price < 0:
+        if self.price and self.price < 0:
             raise ValidationError('Цена не может быть отрицательной')
 
-        if self.discounted_price > self.price:
+        if self.discounted_price and self.discounted_price > self.price:
             raise ValidationError(
                 'Цена со скидкой не может быть больше обычной цены')
 
@@ -86,9 +87,17 @@ class Product(models.Model):
 
 class ProductPhoto(models.Model):
     photo = models.ImageField('Загрузка фото', upload_to='products/',
-                              null=False)
-    # product = models.ForeignKey(Product, verbose_name='Товар',
-    #                            on_delete=models.PROTECT, related_name='photo')
+                              null=False, blank=False)
+    product = models.ForeignKey(Product, verbose_name='Товар',
+                                on_delete=models.PROTECT, related_name='photo')
+    is_preview = models.BooleanField('Превью', default=False)
+
+    class Meta:
+        verbose_name = 'Фото'
+        verbose_name_plural = 'Фото'
+
+    def __str__(self):
+        return basename(str(self.photo))
 
 
 class Mask(Product):
