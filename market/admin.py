@@ -5,10 +5,9 @@ from django.contrib.admin.widgets import AdminFileWidget
 from django.utils.html import mark_safe
 
 from market.models import (Mask, Filter, SalesStatistic, Order, Creator,
-                           Category, Customer, ProductPhoto)
+                           SubCategory, Customer, ProductPhoto)
 
 
-admin.site.register(Category)
 admin.site.register(Creator)
 admin.site.register(Customer)
 admin.site.register(ProductPhoto)
@@ -22,7 +21,6 @@ class CustomModelAdmin(admin.ModelAdmin):
 
 
 class AdminImageWidget(AdminFileWidget):
-
     def render(self, name, value, attrs=None, renderer=None):
         output = []
 
@@ -53,14 +51,20 @@ class ProductPhotoInline(admin.StackedInline):
         return 7
 
 
+@admin.register(SubCategory)
+class CategoryAdmin(CustomModelAdmin):
+    prepopulated_fields = {'slug': ('name',)}
+
+
 @admin.register(Mask, Filter)
 class ProductAdmin(CustomModelAdmin):
     list_display = ('name', 'creator', 'get_price', 'is_enable')
     inlines = [ProductPhotoInline, ]
     filter_horizontal = ('category',)
+    prepopulated_fields = {'slug': ('name',)}
     fieldsets = (
         (None, {
-            'fields': ('is_enable', 'name', 'description', 'price',
+            'fields': ('is_enable', 'name', 'slug', 'description', 'price',
                        'discounted_price', 'video_link')
         }),
         ('Поля ниже не отображаются в карточке', {
@@ -74,7 +78,7 @@ class ProductAdmin(CustomModelAdmin):
         if obj and obj.disabled_date:
             fieldsets = (
                 (None, {
-                    'fields': ('is_enable', 'disabled_date', 'name',
+                    'fields': ('is_enable', 'disabled_date', 'name', 'slug',
                                'description', 'price', 'discounted_price',
                                'video_link')
                 }),
@@ -94,6 +98,13 @@ class ProductAdmin(CustomModelAdmin):
                 readonly_fields = ('disabled_date',)
 
         return readonly_fields
+
+    def get_field_queryset(self, db, db_field, request):
+        # Bahaviour for your field
+        if db_field.name == 'category':
+            return db_field.remote_field.model.filter(creator=request.user)
+        # Default behaviour unchanged
+        return super(OrderAdmin, self).get_field_queryset(db, db_field, request)
 
 
 @admin.register(Order)

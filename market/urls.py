@@ -17,6 +17,13 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.mask_list, name='mask_list'),
-    url(r'^filters$', views.filters_list, name='filters_list'),
+    url('mask/', views.mask_list, name='mask_list'),
+    url('mask/<slug:category_slug>/', views.mask_list,
+        name='mask_list_by_category'),
+    url('mask/<int:id>/<slug:slug>/', views.mask_detail, name='mask_detail'),
+    url('filter/', views.filter_list, name='filter_list'),
+    url('filter/<slug:category_slug>/', views.filter_list,
+        name='filter_list_by_category'),
+    url('filter/<int:id>/<slug:slug>/', views.filter_detail,
+        name='filter_detail'),
 ]
