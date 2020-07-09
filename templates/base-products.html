@@ -34,169 +34,33 @@
     </div>
 </section>
 <div class="cards">
+    {% for product in products %}
     <div class="card">
-        <img src="{% static 'img/card-img1.jpg' %}" alt="card-img1" class="card-image" />
+        <img src="{{ preview }}" class="card-image" />
         <div class="card-text">
-            <h3 class="card-title">Garlic Crown</h3>
+            <h3 class="card-title">{{ product.name }}</h3>
             <div class="price">
-                <span class="card-price">888 888 ₽</span>
-                <span class="card-price-discount">999 999 ₽</span>
+                <span class="card-price">{{ product.price }} ₽</span>
+                {% if product.discounted_price %}
+                <span class="card-price-discount">{{ product.discounted_price }} ₽</span>
+                {% endif %}
             </div>
         </div>
         <div class="buttons-card">
             <button class="button-buy">
-                <span class="button-buy-text">
+                <a href="{{ product.get_absolute_url }}" class="button-buy-text">
                     Купить
-                </span>
+                </a>
             </button>
-            <a data-fancybox href="https://www.youtube.com/watch?v=4qEkhLnsgPs" class="youtube-play">
+            {% if product.video_link %}
+            <a data-fancybox href="{{ product.video_link }}" class="youtube-play">
                 <button class="button-play"></button>
             </a>
+            {% endif %}
         </div>
     </div>
-    <!-- /.card -->
-    <div class="card">
-        <img src="{% static 'img/card-img2.jpg' %}" alt="card-img1" class="card-image" />
-        <div class="card-text">
-            <h3 class="card-title">Green Goddes</h3>
-            <div class="price">
-                <span class="card-price">400 ₽</span>
-            </div>
-        </div>
-        <div class="buttons-card">
-            <button class="button-buy">
-                <span class="button-buy-text">
-                    Купить
-                </span>
-            </button>
-            <a data-fancybox href="https://www.youtube.com/watch?v=ZQEM_vKH4gE" class="youtube-play">
-                <button class="button-play"></button>
-            </a>
-        </div>
-    </div>
-    <!-- /.card -->
-    <div class="card">
-        <img src="{% static 'img/card-img3.jpg' %}" alt="card-img1" class="card-image" />
-        <div class="card-text">
-            <h3 class="card-title">Осень красивая</h3>
-            <div class="price">
-                <span class="card-price">310 ₽</span>
-            </div>
-        </div>
-        <div class="buttons-card">
-            <button class="button-buy">
-                <span class="button-buy-text">
-                    Купить
-                </span>
-            </button>
-            <a data-fancybox href="https://www.youtube.com/watch?v=JsNXswzfITo" class="youtube-play">
-                <button class="button-play"></button>
-            </a>
-        </div>
-    </div>
-    <!-- /.card -->
-    <div class="card">
-        <img src="img/card-img4.jpg" alt="card-img1" class="card-image" />
-        <div class="card-text">
-            <h3 class="card-title">Снедурочка</h3>
-            <div class="price">
-                <span class="card-price">500 ₽</span>
-            </div>
-        </div>
-        <div class="buttons-card">
-            <button class="button-buy">
-                <span class="button-buy-text">
-                    Купить
-                </span>
-            </button>
-            <a data-fancybox href="https://www.youtube.com/watch?v=POb02mjj2zE" class="youtube-play">
-                <button class="button-play"></button>
-            </a>
-        </div>
-    </div>
-    <!-- /.card -->
-    <div class="card">
-        <img src="img/card-img2.jpg" alt="card-img1" class="card-image" />
-        <div class="card-text">
-            <h3 class="card-title">Green Goddes</h3>
-            <div class="price">
-                <span class="card-price">400 ₽</span>
-            </div>
-        </div>
-        <div class="buttons-card">
-            <button class="button-buy">
-                <span class="button-buy-text">
-                    Купить
-                </span>
-            </button>
-            <a data-fancybox href="https://www.youtube.com/watch?v=2zWzaRXyfSc" class="youtube-play">
-                <button class="button-play"></button>
-            </a>
-        </div>
-    </div>
-    <!-- /.card -->
-    <div class="card">
-        <img src="img/card-img3.jpg" alt="card-img1" class="card-image" />
-        <div class="card-text">
-            <h3 class="card-title">Осень красивая</h3>
-            <div class="price">
-                <span class="card-price">310 ₽</span>
-            </div>
-        </div>
-        <div class="buttons-card">
-            <button class="button-buy">
-                <span class="button-buy-text">
-                    Купить
-                </span>
-            </button>
-            <a data-fancybox href="https://www.youtube.com/watch?v=uCUnphNkfro" class="youtube-play">
-                <button class="button-play"></button>
-            </a>
-        </div>
-    </div>
-    <!-- /.card -->
-    <div class="card">
-        <img src="img/card-img1.jpg" alt="card-img1" class="card-image" />
-        <div class="card-text">
-            <h3 class="card-title">Garlic Crown</h3>
-            <div class="price">
-                <span class="card-price">400 ₽</span>
-            </div>
-        </div>
-        <div class="buttons-card">
-            <button class="button-buy">
-                <span class="button-buy-text">
-                    Купить
-                </span>
-            </button>
-            <a data-fancybox href="https://www.youtube.com/watch?v=e_tNF20oIz0" class="youtube-play">
-                <button class="button-play"></button>
-            </a>
-        </div>
-    </div>
-    <!-- /.card -->
-    <div class="card">
-        <img src="img/card-img4.jpg" alt="card-img1" class="card-image" />
-        <div class="card-text">
-            <h3 class="card-title">Снедурочка</h3>
-            <div class="price">
-                <span class="card-price">500 ₽</span>
-            </div>
-        </div>
-        <div class="buttons-card">
-            <button class="button-buy">
-                <span class="button-buy-text">
-                    Купить
-                </span>
-            </button>
-            <a data-fancybox href="https://www.youtube.com/watch?v=YOPBdrGfNJI" class="youtube-play">
-                <button class="button-play"></button>
-            </a>
-        </div>
-    </div>
-    <!-- /.card -->
+    {% endfor %}
 </div>
-<!-- /.cards -->
 {% block order_product %}
 <div class="make-masks">
     <section class="make-mask">
