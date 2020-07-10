@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
+{% load bootstrap4 %}
 
 {% block content %}
 <section class="pick">
-    {% block pick_urls %}{% endblock pick_urls %}
+    <a href="{% url 'market:product_list' 'mask' %}" class="masks-pick-{{ pick_class }}">Маски</a>
+    <a href="{% url 'market:product_list' 'filter' %}" class="filters-pick-{{ pick_class }}">Фильтры</a>
     <span class="instruction">Маски и фильтры продаются в единственном экземпляре.
         <a href="#" class="instruction-modal" id="instruction-link">
             Инструкция по установке.
@@ -13,19 +15,15 @@
     <div class="select-container">
         <h5 class="select-title">Выберите категорию</h5>
         <div class="button-select">
-            <button class="button-category">
-                {% block all_products_name %}{% endblock %}
-            </button>
-            <button class="button-category">Категория 1</button>
-            <button class="button-category">Категория 2</button>
-            <button class="button-category">Категория 3</button>
-            <button class="button-category">Категория 4</button>
-            <button class="button-category">Категория 5</button>
-            <button class="button-category">Категория 6</button>
-            <button class="button-category">Категория 7</button>
-            <button class="button-category">Категория 8</button>
-            <button class="button-category">Категория 9</button>
-            <button class="button-category">Категория 10</button>
+            <a {% if not selected_category %}class="button-category-selected" {% else %}class="button-category"
+                {% endif %} href="{% url 'market:product_list' product_type %}">
+                {% if product_type == 'mask' %} Все маски {% else %} Все фильтры {% endif %}
+            </a>
+            {% for category in categories %}
+            <a {% if category.slug == selected_category.slug %}class="button-category-selected"
+                {% else %}class="button-category" {% endif %}
+                href="{% url 'market:product_list_by_category' product_type category.slug %}">{{ category.name }}</a>
+            {% endfor %}
         </div>
         <div class="link-sort">
             <a href="#" class="sort-up">Сначала дорогие</a>
@@ -36,7 +34,7 @@
 <div class="cards">
     {% for product in products %}
     <div class="card">
-        <img src="{{ preview }}" class="card-image" />
+        <img src="{{ product.preview.url }}" class="card-image" />
         <div class="card-text">
             <h3 class="card-title">{{ product.name }}</h3>
             <div class="price">
@@ -61,6 +59,11 @@
     </div>
     {% endfor %}
 </div>
+
+<div class="col my-auto">
+    {% bootstrap_pagination page %}
+</div>
+
 {% block order_product %}
 <div class="make-masks">
     <section class="make-mask">
@@ -69,9 +72,9 @@
             Закажите&nbsp;свою&nbsp;маску&nbsp;или&nbsp;фильтр&nbsp;для&nbsp;Инстаграма.
         </p>
         <button class="make-mask-button">
-            <span class="make-mask-button-text">
+            <a href="{% url 'market:order_product' %}" class="make-mask-button-text">
                 Заказать маску или фильтр
-            </span>
+            </a>
         </button>
     </section>
 </div>
