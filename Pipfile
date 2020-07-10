@@ -13,6 +13,8 @@ django = "*"
 pillow = "*"
 psycopg2 = "*"
 django-modeladmin-reorder = "*"
+django-cleanup = "*"
+django-bootstrap4 = "*"
 
 [requires]
 python_version = "3.8"
