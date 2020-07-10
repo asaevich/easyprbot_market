@@ -14,51 +14,14 @@ class Category(models.Model):
     slug = models.SlugField('Слаг',
                             max_length=50,
                             unique=True)
-    super_category = models.ForeignKey('Надкатегория',
-                                       on_delete=models.PROTECT,
-                                       null=True,
-                                       blank=True,)
 
     class Meta:
+        ordering = ('name',)
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
 
     def __str__(self):
         return self.name
-
-
-class SuperCategoryМanager(models.Manager):
-    def get_queryset(self):
-        return super().get_queryset().filter(super_category__isnull=True)
-
-
-class SuperCategory(Category):
-    objects = SuperCategoryМanager()
-
-    def str(self):
-        return self.name
-
-    class Meta:
-        proxy = True
-        verbose_name = 'Надкатегория'
-        verbose_name_plural = 'Надкатегории'
-
-
-class SubCategoryМanager(models.Manager):
-    def get_queryset(self):
-        return super().get_queryset().filter(super_category__isnull=False)
-
-
-class SubCategory(Category):
-    objects = SubCategoryМanager()
-
-    def str(self):
-        return f'{self.super_category.name} - {self.name}'
-
-    class Meta:
-        proxy = True
-        verbose_name = 'Подкатегория'
-        verbose_name_plural = 'Подкатегории'
 
 
 class Creator(models.Model):
@@ -91,7 +54,7 @@ class Customer(models.Model):
 
 
 class Product(models.Model):
-    is_enable = models.BooleanField('Отображается', default=True)
+    is_available = models.BooleanField('Отображается', default=True)
     disabled_date = models.DateField('Товар снят с публикации',
                                      null=True,
                                      blank=True,
@@ -115,9 +78,10 @@ class Product(models.Model):
     video_link = models.URLField('Ссылка на видео',
                                  null=True,
                                  blank=True)
-    category = models.ManyToManyField(SubCategory, verbose_name='Категория')
+    category = models.ManyToManyField(Category, verbose_name='Категория')
 
     class Meta:
+        ordering = ['name']
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
 
@@ -125,11 +89,16 @@ class Product(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        if self.is_enable:
+        if self.is_available:
             self.disabled_date = None
         else:
             self.disabled_date = date.today()
         super(Product, self).save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        for photo in self.photos.all():
+            photo.delete()
+        super().delete(*args, **kwargs)
 
     def clean(self):
         if self.price and self.price < 0:
@@ -154,8 +123,8 @@ class ProductPhoto(models.Model):
                               blank=False)
     product = models.ForeignKey(Product,
                                 verbose_name='Товар',
-                                on_delete=models.PROTECT,
-                                related_name='photo')
+                                on_delete=models.CASCADE,
+                                related_name='photos')
     is_preview = models.BooleanField('Превью', default=False)
 
     class Meta:
@@ -176,7 +145,8 @@ class Mask(Product):
         verbose_name_plural = 'Маски'
 
     def get_absolute_url(self):
-        return reverse('market:mask_detail', args=[self.id, self.slug])
+        return reverse('market:product_detail',
+                       args=['mask', self.id, self.slug])
 
 
 class Filter(Product):
@@ -189,7 +159,8 @@ class Filter(Product):
         verbose_name_plural = 'Фильтры'
 
     def get_absolute_url(self):
-        return reverse('market:filter_detail', args=[self.id, self.slug])
+        return reverse('market:product_detail',
+                       args=['filter', self.id, self.slug])
 
 
 class Order(models.Model):

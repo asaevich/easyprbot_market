@@ -5,7 +5,7 @@ from django.contrib.admin.widgets import AdminFileWidget
 from django.utils.html import mark_safe
 
 from market.models import (Mask, Filter, SalesStatistic, Order, Creator,
-                           SubCategory, Customer, ProductPhoto)
+                           Category, Customer, ProductPhoto)
 
 
 admin.site.register(Creator)
@@ -51,20 +51,20 @@ class ProductPhotoInline(admin.StackedInline):
         return 7
 
 
-@admin.register(SubCategory)
+@admin.register(Category)
 class CategoryAdmin(CustomModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
 
 @admin.register(Mask, Filter)
 class ProductAdmin(CustomModelAdmin):
-    list_display = ('name', 'creator', 'get_price', 'is_enable')
+    list_display = ('name', 'creator', 'get_price', 'is_available')
     inlines = [ProductPhotoInline, ]
     filter_horizontal = ('category',)
     prepopulated_fields = {'slug': ('name',)}
     fieldsets = (
         (None, {
-            'fields': ('is_enable', 'name', 'slug', 'description', 'price',
+            'fields': ('is_available', 'name', 'slug', 'description', 'price',
                        'discounted_price', 'video_link')
         }),
         ('Поля ниже не отображаются в карточке', {
@@ -78,7 +78,7 @@ class ProductAdmin(CustomModelAdmin):
         if obj and obj.disabled_date:
             fieldsets = (
                 (None, {
-                    'fields': ('is_enable', 'disabled_date', 'name', 'slug',
+                    'fields': ('is_available', 'disabled_date', 'name', 'slug',
                                'description', 'price', 'discounted_price',
                                'video_link')
                 }),
@@ -98,13 +98,6 @@ class ProductAdmin(CustomModelAdmin):
                 readonly_fields = ('disabled_date',)
 
         return readonly_fields
-
-    def get_field_queryset(self, db, db_field, request):
-        # Bahaviour for your field
-        if db_field.name == 'category':
-            return db_field.remote_field.model.filter(creator=request.user)
-        # Default behaviour unchanged
-        return super(OrderAdmin, self).get_field_queryset(db, db_field, request)
 
 
 @admin.register(Order)

@@ -74,7 +74,7 @@
   top: 11px;
   right: 135px;
   position: absolute;
-  background: #ff0000 url("/img/5.svg") center no-repeat;
+  background: #ff0000 url("/static/img/5.svg") center no-repeat;
   height: 22px;
   width: 22px;
   border-radius: 50%;
@@ -263,12 +263,13 @@
   margin-bottom: 15px;
   cursor: pointer;
 }
-.button-category:focus {
+.button-category-selected {
   background: #4c5861;
   border-radius: 5px;
   font-family: "Rubik", sans-serif;
   font-size: 14px;
   line-height: 17px;
+  padding: 8px 10px;
   text-align: center;
   color: #ffffff;
 }
@@ -505,7 +506,7 @@
   margin-right: 8px;
 }
 .politic:checked + .politic-text::before {
-  background: #3897f0 url(/img/checkbox.svg) no-repeat center;
+  background: #3897f0 url("/static/img/checkbox.svg") no-repeat center;
   background-size: 18px 18px;
 }
 .main-link {
@@ -788,7 +789,7 @@
 .buying-card {
   margin-top: 60px;
   margin-right: auto;
-  background: #ffff url("/img/YouTube-transparent.svg") center 167px no-repeat;
+  background: #ffff url("/static/img/YouTube-transparent.svg") center 167px no-repeat;
 }
 .buy-cards {
   margin-left: 20px;
