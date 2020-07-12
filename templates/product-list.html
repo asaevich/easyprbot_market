@@ -16,18 +16,19 @@
         <h5 class="select-title">Выберите категорию</h5>
         <div class="button-select">
             <a {% if not selected_category %}class="button-category-selected" {% else %}class="button-category"
-                {% endif %} href="{% url 'market:product_list' product_type %}">
+                {% endif %} href="{% url 'market:product_list' product_type %}{{ all }}">
                 {% if product_type == 'mask' %} Все маски {% else %} Все фильтры {% endif %}
             </a>
             {% for category in categories %}
             <a {% if category.slug == selected_category.slug %}class="button-category-selected"
                 {% else %}class="button-category" {% endif %}
-                href="{% url 'market:product_list_by_category' product_type category.slug %}">{{ category.name }}</a>
+                href="{% url 'market:product_list_by_category' product_type category.slug %}{{ all }}">{{ category.name }}</a>
             {% endfor %}
         </div>
         <div class="link-sort">
-            <a href="#" class="sort-up">Сначала дорогие</a>
-            <a href="#" class="sort-down">Сначала дешевые</a>
+            <form id="filter_form" method="GET" onchange="submit()">
+                {{ filter_form }}
+            </form>
         </div>
     </div>
 </section>
@@ -39,8 +40,8 @@
             <h3 class="card-title">{{ product.name }}</h3>
             <div class="price">
                 <span class="card-price">{{ product.price }} ₽</span>
-                {% if product.discounted_price %}
-                <span class="card-price-discount">{{ product.discounted_price }} ₽</span>
+                {% if product.old_price %}
+                <span class="card-price-discount">{{ product.old_price }} ₽</span>
                 {% endif %}
             </div>
         </div>
@@ -61,7 +62,7 @@
 </div>
 
 <div class="col my-auto">
-    {% bootstrap_pagination page %}
+    {% bootstrap_pagination page url=ordering %}
 </div>
 
 {% block order_product %}

@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.http import Http404
 from django.core.paginator import Paginator
 from .models import Mask, Filter, Category
+from .forms import ProductFilterForm
 
 
 def product_list(request, product_type_slug, category_slug=None):
@@ -26,19 +27,36 @@ def product_list(request, product_type_slug, category_slug=None):
     for product in products:
         product.preview = product.photos.filter(is_preview=True)[0].photo
 
+        if product.discounted_price:
+            product.old_price = product.price
+            product.price = product.discounted_price
+
+    if 'ordering' in request.GET:
+        ordering = request.GET['ordering']
+
+        if ordering[0] == '-':
+            products = sorted(
+                products, key=lambda product: product.price, reverse=True)
+        else:
+            products = sorted(products, key=lambda product: product.price)
+    else:
+        ordering = ''
+    filter_form = ProductFilterForm(initial={'ordering': ordering})
+
     paginator = Paginator(products, 2)
     if 'page' in request.GET:
         page_num = request.GET['page']
     else:
         page_num = 1
-    page = paginator.get_page(page_num)
+    page = paginator.page(page_num)
 
     context = {'selected_category': selected_category,
                'categories': categories,
                'products': page.object_list,
                'product_type': product_type_slug,
                'pick_class': css_class,
-               'page': page}
+               'page': page,
+               'filter_form': filter_form}
 
     return render(request, 'product-list.html', context)
 

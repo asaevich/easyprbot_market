@@ -6,8 +6,8 @@ from django.contrib.staticfiles.views import serve
 from django.views.decorators.cache import never_cache
 
 urlpatterns = [
-    path('', include('market.urls', namespace='market')),
     path('admin/', admin.site.urls),
+    path('', include('market.urls', namespace='market')),
 ]
 
 if settings.DEBUG:
