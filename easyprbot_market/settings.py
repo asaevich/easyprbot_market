@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'market.apps.MarketConfig',
+    'cart.apps.CartConfig',
     'admin_reorder',
     'bootstrap4',
     'django_cleanup.apps.CleanupConfig',
@@ -69,7 +70,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'market.context_processors.market_context_processor',
+                'market.context_processors.market',
+                'cart.context_processors.cart',
             ],
         },
     },
@@ -150,3 +152,5 @@ ADMIN_REORDER = (
 )
 
 LIST_PER_PAGE = 20
+
+CART_SESSION_ID = 'cart'

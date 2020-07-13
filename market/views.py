@@ -57,17 +57,17 @@ def product_list(request, product_type_slug, category_slug=None):
                'page': page,
                'filter_form': filter_form}
 
-    return render(request, 'product-list.html', context)
+    return render(request, 'market/product-list.html', context)
 
 
-def product_detail(request, product_type_slug, category_slug, pk):
+def product_detail(request, product_type_slug, category_slug, product_pk):
     selected_category = None
 
     if product_type_slug == 'mask':
-        product = get_object_or_404(Mask, pk=pk)
+        product = get_object_or_404(Mask, pk=product_pk)
         products = Mask.objects.filter(is_available=True)
     elif product_type_slug == 'filter':
-        product = get_object_or_404(Filter, pk=pk)
+        product = get_object_or_404(Filter, pk=product_pk)
         products = Filter.objects.filter(is_available=True)
     else:
         raise Http404('Страница не найдена')
@@ -101,8 +101,8 @@ def product_detail(request, product_type_slug, category_slug, pk):
                'product_type': product_type_slug,
                'page': page}
 
-    return render(request, 'product-detail.html', context)
+    return render(request, 'market/product-detail.html', context)
 
 
 def order_product(request):
-    return render(request, 'order-product.html')
+    return render(request, 'market/order-product.html')

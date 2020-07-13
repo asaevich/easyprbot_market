@@ -8,8 +8,10 @@ const closeModalBasket = document.querySelector(".close-basket");
 modalInstruction.addEventListener("click", toggleModalInstruction);
 closeModalInstruction.addEventListener("click", toggleModalInstruction);
 
+
 modalBasket.addEventListener("click", toggleModalBasket);
 closeModalBasket.addEventListener("click", toggleModalBasket);
+
 
 function toggleModalInstruction() {
   getModalInstruction.classList.toggle("is-open-instruction");

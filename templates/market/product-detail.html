@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "market/base.html" %}
 {% load static %}
 {% load bootstrap4 %}
 
@@ -22,7 +22,7 @@
         {% endif %}
       </div>
       <button class="add-cart">
-        <span class="add-card-button">В корзину</span>
+        <a class="add-card-button" href="{% url 'cart:cart_add' product.pk %}">В корзину</a>
       </button>
     </div>
   </section>

@@ -51,10 +51,13 @@
                 </ul>
             </nav>
             {% block basket_btn %}
-            <button class="basket-button" id="basket-button">
-                <img src="{% static 'img/basket.jpg' %}" alt="basket" class="basket-img" />
-                <span class="text-button">Корзина</span>
+            {% if cart|length > 0 %}
+            <button class="basket-button" id="basket-button"></button>
+            <a href="{% url 'cart:cart_detail' %}">Корзина</a>
             </button>
+            {% else %}
+            Корзина пуста
+            {% endif %}
             {% endblock basket_btn %}
         </header>
     </div>
@@ -70,40 +73,6 @@
     </footer>
 
     {% block modals %}
-    <div class="modal-basket">
-        <div class="modal-basket-dialog">
-            <div class="header-basket">
-                <h2 class="basket-title">
-                    Ваша корзина пуста
-                </h2>
-                <button class="close-basket">&times;</button>
-            </div>
-            <div class="basket-body">
-                <form action="#">
-                    <div class="basket-form">
-                        <div class="basket-search">
-                            <label for="№" class="search-text">Найдите маски и фильтры в нашем каталоге,
-                                добавьте их в корзину и возвращайтесь
-                                снова.</label>
-                            <button class="button-search-basket">
-                                <span class="make-mask-button-text">Найти маски и фильтры</span>
-                            </button>
-                        </div>
-                        <div class="order-masks">
-                            <label for="" class="order-text">
-                                Не нашли ничего подходящего? <br />
-                                Закажите свою маску или фильтр для
-                                Инстаграма. <br />
-                            </label>
-                            <button class="button-order-mask">
-                                <span class="make-mask-button-text">Заказать маску или фильтр</span>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
     {% endblock modals %}
 
     {% block fancybox %}

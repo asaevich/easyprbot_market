@@ -1,7 +1,7 @@
 from market.apps import MarketConfig
 
 
-def market_context_processor(request):
+def market(request):
     context = {}
     context['parameters'] = ''
     context['app_name'] = MarketConfig.name

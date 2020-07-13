@@ -1,0 +1,80 @@
+{% extends "market/base.html" %}
+{% load static %}
+
+{% block basket_btn %}{% endblock basket_btn %}
+
+{% block content %}
+<div class="total-goods">
+  <div class="total-good">
+    <span class="total-text">
+      Всего {{ cart|length }} товаров <br />
+      На сумму: {{ cart.get_total_price }} ₽
+    </span>
+    <a class="payment-button pay-button" id="button-payment" href="">
+      Оплатить
+    </a>
+  </div>
+</div>
+<div class="cards">
+  {% for item in cart %}
+  {% with product=item.product %}
+  <div class="card">
+    <img src="{{ product.preview.url }}" class="card-image" />
+    <div class="card-text">
+      <h3 class="card-title">{{ product.name }}</h3>
+      <div class="price">
+        <span class="card-price">{{ product.price }} ₽</span>
+        {% if product.old_price %}
+        <span class="card-price-discount">{{ product.old_price }} ₽</span>
+        {% endif %}
+      </div>
+    </div>
+    <div class="buttons-card">
+      <a href="{% url 'cart:cart_remove' product.pk %}" class="delete-card">Удалить</a>
+    </div>
+  </div>
+  {% endwith %}
+  {% endfor %}
+</div>
+{% endblock content %}
+
+{% block modals %}
+<div class="modal-email">
+  <div class="modal-email-dialog">
+    <div class="header-email">
+      <h2 class="email-title">Введите e-mail</h2>
+      <button class="close-email">&times;</button>
+    </div>
+    <div class="email-body">
+      <span class="email-text">
+        Введите реальный e-mail адрес. После оплаты на него придет письмо с
+        вашим заказом и инструкцией по установке.
+      </span>
+      <form action="">
+        <div class="form-email">
+          <label for="" class="email-form-text">Ваш e-mail</label>
+          <input type="text" class="input-email" />
+          <button class="email-payment">
+            <span class="make-mask-button-text">Перейти к оплате</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock modals %}
+
+{% block scripts %}
+<script>
+  const modalEmail = document.querySelector(".pay-button");
+  const getModalEmail = document.querySelector(".modal-email");
+  const closeModalEmail = document.querySelector(".close-email");
+
+  modalEmail.addEventListener("click", toggleModalEmail);
+  closeModalEmail.addEventListener("click", toggleModalEmail);
+
+  function toggleModalEmail() {
+    getModalEmail.classList.toggle("is-open-email");
+  }
+</script>
+{% endblock scripts %}
