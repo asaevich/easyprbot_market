@@ -10,7 +10,7 @@
       Всего {{ cart|length }} товаров <br />
       На сумму: {{ cart.get_total_price }} ₽
     </span>
-    <a class="payment-button pay-button" id="button-payment" href="">
+    <a class="payment-button pay-button" id="button-payment" href="#">
       Оплатить
     </a>
   </div>
@@ -50,10 +50,11 @@
         Введите реальный e-mail адрес. После оплаты на него придет письмо с
         вашим заказом и инструкцией по установке.
       </span>
-      <form action="">
+      <form method="POST">
+        {% csrf_token %}
         <div class="form-email">
           <label for="" class="email-form-text">Ваш e-mail</label>
-          <input type="text" class="input-email" />
+          {{ order_form }}
           <button class="email-payment">
             <span class="make-mask-button-text">Перейти к оплате</span>
           </button>

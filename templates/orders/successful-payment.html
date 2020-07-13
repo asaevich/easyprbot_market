@@ -16,13 +16,13 @@
         письмо не пришло вам на почту, напишите нам на
         <span class="payment-link">agency@mitroshina.org</span> <br /><br />
         <span class="payment-bold">
-          Обязательно укажите ваш номер заказа — 115
+          Обязательно укажите ваш номер заказа — {{ order.pk }}
         </span>
       </p>
       <button class="payment-button">
-        <span class="payment-button-text">
+        <a class="payment-button-text" href="{% url 'market:product_list' 'mask' %}">
           На главную
-        </span>
+        </a>
       </button>
     </div>
   </div>

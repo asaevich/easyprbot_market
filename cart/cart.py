@@ -36,6 +36,13 @@ class Cart(object):
 
         self.save()
 
+    def get_total_price(self):
+        return sum(Decimal(item['price']) for item in self.cart.values())
+
+    def clear(self):
+        del self.session[settings.CART_SESSION_ID]
+        self.save()
+
     def __iter__(self):
         product_ids = self.cart.keys()
         products = Product.objects.filter(id__in=product_ids)
@@ -56,6 +63,3 @@ class Cart(object):
 
     def __len__(self):
         return len(self.cart)
-
-    def get_total_price(self):
-        return sum(Decimal(item['price']) for item in self.cart.values())

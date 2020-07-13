@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils.html import mark_safe
-from django.urls import reverse
 from django.core.exceptions import ValidationError
 from os.path import basename
 from datetime import date
@@ -141,12 +140,9 @@ class Mask(Product):
                                 on_delete=models.PROTECT)
 
     class Meta:
+
         verbose_name = 'Маску'
         verbose_name_plural = 'Маски'
-
-    def get_absolute_url(self):
-        return reverse('market:product_detail',
-                       args=['mask', self.id, self.slug])
 
 
 class Filter(Product):
@@ -157,33 +153,3 @@ class Filter(Product):
     class Meta:
         verbose_name = 'Фильтр'
         verbose_name_plural = 'Фильтры'
-
-    def get_absolute_url(self):
-        return reverse('market:product_detail',
-                       args=['filter', self.id, self.slug])
-
-
-class Order(models.Model):
-    number = models.IntegerField('Заказ', primary_key=True)
-    products = models.ManyToManyField(Product, verbose_name='Товары')
-    customer = models.ForeignKey(Customer,
-                                 verbose_name='Покупатель',
-                                 on_delete=models.PROTECT)
-    amount = models.FloatField('Сумма', null=False)
-
-    class Meta:
-        verbose_name = 'Заказ'
-        verbose_name_plural = 'Заказы'
-
-
-class SalesStatistic(models.Model):
-    author = models.ForeignKey(Creator,
-                               verbose_name='Автор',
-                               on_delete=models.PROTECT)
-    sold = models.IntegerField('Продажи', null=False)
-    amount = models.FloatField('Сумма', null=False)
-    in_stock = models.IntegerField('Товара в наличии', null=False)
-
-    class Meta:
-        verbose_name = 'Статистика продаж'
-        verbose_name_plural = 'Статистика продаж'

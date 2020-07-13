@@ -4,10 +4,11 @@ from django.db import models
 from django.contrib.admin.widgets import AdminFileWidget
 from django.utils.html import mark_safe
 
-from market.models import (Mask, Filter, SalesStatistic, Order, Creator,
+from market.models import (Product, Mask, Filter, Creator,
                            Category, Customer, ProductPhoto)
 
 
+admin.site.register(Product)
 admin.site.register(Creator)
 admin.site.register(Customer)
 admin.site.register(ProductPhoto)
@@ -49,11 +50,6 @@ class ProductPhotoInline(admin.StackedInline):
 
     def get_max_num(self, request, obj=None, **kwargs):
         return 7
-
-
-@admin.register(Category)
-class CategoryAdmin(CustomModelAdmin):
-    prepopulated_fields = {'slug': ('name',)}
 
 
 @admin.register(Mask, Filter)
@@ -100,25 +96,6 @@ class ProductAdmin(CustomModelAdmin):
         return readonly_fields
 
 
-@admin.register(Order)
-class OrderAdmin(CustomModelAdmin):
-    list_display = ('number', 'customer', 'amount')
-
-    def has_add_permission(self, request):
-        return False
-
-    def has_change_permission(self, request, obj=None):
-        return False
-
-
-@admin.register(SalesStatistic)
-class SalesStatisticAdmin(CustomModelAdmin):
-    list_display = ('author', 'sold', 'amount', 'in_stock')
-    list_display_links = None
-    readonly_fields = ('author', 'sold', 'amount', 'in_stock')
-
-    def has_add_permission(self, request):
-        return False
-
-    def has_change_permission(self, request, obj=None):
-        return False
+@admin.register(Category)
+class CategoryAdmin(CustomModelAdmin):
+    prepopulated_fields = {'slug': ('name',)}

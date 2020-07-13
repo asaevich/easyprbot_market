@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'market.apps.MarketConfig',
     'cart.apps.CartConfig',
+    'orders.apps.OrdersConfig',
     'admin_reorder',
     'bootstrap4',
     'django_cleanup.apps.CleanupConfig',
@@ -145,9 +146,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
 ADMIN_REORDER = (
-    {'app': 'market', 'models': ('market.Mask', 'market.Filter',
-                                 'market.Order', 'market.SalesStatistic')},
-
+    {'app': 'market', 'models': ('market.Mask', 'market.Filter')},
+    {'app': 'orders', 'models': ('orders.Order', 'orders.SalesStatistic')},
     {'app': 'auth', 'models': ('auth.User', 'auth.Group')},
 )
 
