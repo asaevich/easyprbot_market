@@ -16,13 +16,13 @@
         <h5 class="select-title">Выберите категорию</h5>
         <div class="button-select">
             <a {% if not selected_category %}class="button-category-selected" {% else %}class="button-category"
-                {% endif %} href="{% url 'market:product_list' product_type %}{{ all }}">
+                {% endif %} href="{% url 'market:product_list' product_type %}{{ parameters }}">
                 {% if product_type == 'mask' %} Все маски {% else %} Все фильтры {% endif %}
             </a>
             {% for category in categories %}
             <a {% if category.slug == selected_category.slug %}class="button-category-selected"
                 {% else %}class="button-category" {% endif %}
-                href="{% url 'market:product_list_by_category' product_type category.slug %}{{ all }}">{{ category.name }}</a>
+                href="{% url 'market:product_list_by_category' product_type category.slug %}{{ parameters }}">{{ category.name }}</a>
             {% endfor %}
         </div>
         <div class="link-sort">
@@ -47,9 +47,17 @@
         </div>
         <div class="buttons-card">
             <button class="button-buy">
-                <a href="{{ product.get_absolute_url }}" class="button-buy-text">
+                {% if not selected_category %}
+                <a href="{% url 'market:product_detail' product_type 'all' product.pk %}{{ parameters }}"
+                    class="button-buy-text">
                     Купить
                 </a>
+                {% else %}
+                <a href="{% url 'market:product_detail' product_type selected_category product.pk %}{{ parameters }}"
+                    class="button-buy-text">
+                    Купить
+                </a>
+                {% endif %}
             </button>
             {% if product.video_link %}
             <a data-fancybox href="{{ product.video_link }}" class="youtube-play">
@@ -73,7 +81,7 @@
             Закажите&nbsp;свою&nbsp;маску&nbsp;или&nbsp;фильтр&nbsp;для&nbsp;Инстаграма.
         </p>
         <button class="make-mask-button">
-            <a href="{% url 'market:order_product' %}" class="make-mask-button-text">
+            <a href="{% url 'market:order_product' %}{{ parameters }}" class="make-mask-button-text">
                 Заказать маску или фильтр
             </a>
         </button>

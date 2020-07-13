@@ -7,7 +7,6 @@ from .forms import ProductFilterForm
 
 
 def product_list(request, product_type_slug, category_slug=None):
-    context = {}
     selected_category = None
     categories = Category.objects.all()
 
@@ -61,8 +60,48 @@ def product_list(request, product_type_slug, category_slug=None):
     return render(request, 'product-list.html', context)
 
 
-def product_detail(request, product_type_slug, id, product_slug):
-    pass
+def product_detail(request, product_type_slug, category_slug, pk):
+    selected_category = None
+
+    if product_type_slug == 'mask':
+        product = get_object_or_404(Mask, pk=pk)
+        products = Mask.objects.filter(is_available=True)
+    elif product_type_slug == 'filter':
+        product = get_object_or_404(Filter, pk=pk)
+        products = Filter.objects.filter(is_available=True)
+    else:
+        raise Http404('Страница не найдена')
+
+    product.images = product.photos.all()
+    if product.discounted_price:
+        product.old_price = product.price
+        product.price = product.discounted_price
+
+    if category_slug != 'all':
+        selected_category = get_object_or_404(Category, slug=category_slug)
+        products = products.filter(category=selected_category)
+
+    for p in products:
+        p.preview = product.photos.filter(is_preview=True)[0].photo
+
+        if p.discounted_price:
+            p.old_price = product.price
+            p.price = product.discounted_price
+
+    paginator = Paginator(products, 2)
+    if 'page' in request.GET:
+        page_num = request.GET['page']
+    else:
+        page_num = 1
+    page = paginator.page(page_num)
+
+    context = {'selected_category': selected_category,
+               'products': page.object_list,
+               'product': product,
+               'product_type': product_type_slug,
+               'page': page}
+
+    return render(request, 'product-detail.html', context)
 
 
 def order_product(request):

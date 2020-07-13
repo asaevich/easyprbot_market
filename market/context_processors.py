@@ -3,7 +3,7 @@ from market.apps import MarketConfig
 
 def market_context_processor(request):
     context = {}
-    context['all'] = ''
+    context['parameters'] = ''
     context['app_name'] = MarketConfig.name
 
     if 'ordering' in request.GET:
@@ -11,15 +11,15 @@ def market_context_processor(request):
 
         if ordering:
             context['ordering'] = '?ordering=' + ordering
-            context['all'] = context['ordering']
+            context['parameters'] = context['ordering']
 
     if 'page' in request.GET:
         page = request.GET['page']
 
         if page != '1':
-            if context.get('all'):
-                context['all'] += '&page=' + page
+            if context.get('parameters'):
+                context['parameters'] += '&page=' + page
             else:
-                context['all'] = '?page=' + page
+                context['parameters'] = '?page=' + page
 
     return context
