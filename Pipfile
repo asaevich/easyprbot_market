@@ -16,7 +16,7 @@ django-modeladmin-reorder = "*"
 django-cleanup = "*"
 django-bootstrap4 = "*"
 celery = "*"
-gevent = "*"
+braintree = "*"
 
 [requires]
 python_version = "3.8"

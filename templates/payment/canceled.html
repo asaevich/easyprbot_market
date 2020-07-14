@@ -1,0 +1,44 @@
+{% extends "market/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container-payment">
+    <div class="successful-payment">
+        <div class="payment-header">
+            <img src="{% static 'img/error_icon.svg' %}" alt="error" class="icon" />
+            <h1 class="paymet-title">
+                Во время оплаты заказа произошла ошибка
+            </h1>
+        </div>
+        <div class="payment-body">
+            <p class="payment-text">
+                Пожалуйста, повторите попытку оплаты. Если оплата заказа не срабатывает, напишите нам на
+                <span class="payment-link">agency@mitroshina.org</span> <br /><br />
+            </p>
+            <button class="payment-button">
+                <a class="payment-button-text" href="{% url 'payment:process' %}">
+                    Повторить попытку
+                </a>
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block fancybox %}{% endblock fancybox %}
+
+{% block scripts %}
+{{ block.super }}
+<script>
+    const modalBasket = document.getElementById("basket-button");
+    const getModalBasket = document.querySelector(".modal-basket");
+    const closeModalBasket = document.querySelector(".close-basket");
+
+    modalBasket.addEventListener("click", toggleModalBasket);
+    closeModalBasket.addEventListener("click", toggleModalBasket);
+
+    function toggleModalBasket() {
+        getModalBasket.classList.toggle("is-open-basket");
+    }
+</script>
+{% endblock scripts %}

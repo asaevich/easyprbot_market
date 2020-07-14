@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 from market.models import Product
 from .cart import Cart
-from orders.tasks import order_paid
 from orders.forms import OrderCreateForm
-from orders.models import Order, OrderItem
-from market.models import Customer
+from orders.models import Customer
 
 
 def cart_add(request, product_pk):
@@ -39,22 +38,11 @@ def cart_detail(request):
         if form.is_valid():
             customer_email = form.cleaned_data['customer_email']
 
-            if Customer.objects.filter(email=customer_email).exists():
-                customer = Customer.objects.get(email=customer_email)
-            else:
-                customer = Customer.objects.create(email=customer_email)
+            if not Customer.objects.filter(email=customer_email).exists():
+                Customer.objects.create(email=customer_email)
 
-            order = Order.objects.create(customer=customer)
-            for item in cart:
-                OrderItem.objects.create(order=order,
-                                         product=item['product'],
-                                         price=item['price'])
-            cart.clear()
-            order_paid.delay(order.pk)
-
-            return render(request,
-                          'orders/successful-payment.html',
-                          {'order': order})
+            request.session['customer_email'] = customer_email
+            return redirect(reverse('payment:process'))
 
     order_form = OrderCreateForm()
     return render(request,

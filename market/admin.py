@@ -3,14 +3,12 @@ from django.conf import settings
 from django.db import models
 from django.contrib.admin.widgets import AdminFileWidget
 from django.utils.html import mark_safe
-
 from market.models import (Product, Mask, Filter, Creator,
-                           Category, Customer, ProductPhoto)
+                           Category, ProductPhoto)
 
 
 admin.site.register(Product)
 admin.site.register(Creator)
-admin.site.register(Customer)
 admin.site.register(ProductPhoto)
 
 admin.site.site_header = 'Панель администратора'

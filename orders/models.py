@@ -1,7 +1,21 @@
 from django.db import models
 from django.utils.html import mark_safe
 from django.urls import reverse
-from market.models import Product, Creator, Customer, Mask
+from market.models import Product, Creator, Mask
+
+
+class Customer(models.Model):
+    email = models.EmailField('Покупатель',
+                              unique=True,
+                              blank=False,
+                              null=False)
+
+    class Meta:
+        verbose_name = 'Покупатель'
+        verbose_name_plural = 'Покупатели'
+
+    def __str__(self):
+        return self.email
 
 
 class Order(models.Model):

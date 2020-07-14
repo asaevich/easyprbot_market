@@ -38,20 +38,6 @@ class Creator(models.Model):
         return self.nickname
 
 
-class Customer(models.Model):
-    email = models.EmailField('Покупатель',
-                              unique=True,
-                              blank=False,
-                              null=False)
-
-    class Meta:
-        verbose_name = 'Покупатель'
-        verbose_name_plural = 'Покупатели'
-
-    def __str__(self):
-        return self.email
-
-
 class Product(models.Model):
     is_available = models.BooleanField('Отображается', default=True)
     disabled_date = models.DateField('Товар снят с публикации',

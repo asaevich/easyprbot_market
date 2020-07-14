@@ -1,6 +1,9 @@
 from django.contrib import admin
 from market.admin import CustomModelAdmin
-from .models import Order, OrderItem, SalesStatistic
+from .models import Customer, Order, OrderItem, SalesStatistic
+
+
+admin.site.register(Customer)
 
 
 class OrderItemInline(admin.StackedInline):

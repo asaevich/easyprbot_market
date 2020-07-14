@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
+from braintree import Configuration, Environment
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'market.apps.MarketConfig',
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
+    'payment.apps.PaymentConfig',
     'admin_reorder',
     'bootstrap4',
     'django_cleanup.apps.CleanupConfig',
@@ -145,14 +147,30 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
+# Настройки приложения admin_reorder
+# Изменение порядка вывода моделей в админ. панеле
 ADMIN_REORDER = (
     {'app': 'market', 'models': ('market.Mask', 'market.Filter')},
     {'app': 'orders', 'models': ('orders.Order', 'orders.SalesStatistic')},
     {'app': 'auth', 'models': ('auth.User', 'auth.Group')},
 )
 
+# Количество записей на одной страницев в админ. панеле
 LIST_PER_PAGE = 20
 
+# ID корзины товаров, используемый для извлечение ее из сессий
 CART_SESSION_ID = 'cart'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Настройки платежной системы Braintree.
+BRAINTREE_MERCHANT_ID = 'qsc7ntkzzdxcpx6q'
+BRAINTREE_PUBLIC_KEY = 'mfx6ktp3zy4bpvbc'
+BRAINTREE_PRIVATE_KEY = '10601c57d88c730abec38efb7eb87b41'
+
+Configuration.configure(
+    Environment.Sandbox,
+    BRAINTREE_MERCHANT_ID,
+    BRAINTREE_PUBLIC_KEY,
+    BRAINTREE_PRIVATE_KEY
+)
