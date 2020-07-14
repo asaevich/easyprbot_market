@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from market.models import Product
 from .cart import Cart
+from orders.tasks import order_paid
 from orders.forms import OrderCreateForm
 from orders.models import Order, OrderItem
 from market.models import Customer
@@ -49,6 +50,7 @@ def cart_detail(request):
                                          product=item['product'],
                                          price=item['price'])
             cart.clear()
+            order_paid.delay(order.pk)
 
             return render(request,
                           'orders/successful-payment.html',
