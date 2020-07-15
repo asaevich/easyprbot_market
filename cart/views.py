@@ -1,50 +1,65 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse
+from django.shortcuts import redirect, get_object_or_404
+from django.urls import reverse_lazy
+from django.views.generic.base import RedirectView
+from django.views.generic.edit import FormView
 from market.models import Product
 from .cart import Cart
 from orders.forms import OrderCreateForm
 from orders.models import Customer
 
 
-def cart_add(request, product_pk):
-    cart = Cart(request)
-    product = get_object_or_404(Product, pk=product_pk)
+class CartDetailView(FormView):
+    """Представление, отображающее страницу корзины"""
+    template_name = 'cart/cart_detail.html'
+    form_class = OrderCreateForm
+    success_url = reverse_lazy('payment:process')
 
-    product.preview = product.photos.filter(is_preview=True)[0].photo
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['cart'] = Cart(self.request)
+        return context
 
-    if product.discounted_price:
-        product.old_price = product.price
-        product.price = product.discounted_price
+    def form_valid(self, form):
+        customer_email = form.cleaned_data['customer_email']
 
-    cart.add(product)
+        if not Customer.objects.filter(email=customer_email).exists():
+            Customer.objects.create(email=customer_email)
 
-    return redirect('cart:cart_detail')
+        self.request.session['customer_email'] = customer_email
 
-
-def cart_remove(request, product_pk):
-    cart = Cart(request)
-    product = get_object_or_404(Product, pk=product_pk)
-    cart.remove(product)
-
-    return redirect('cart:cart_detail')
+        return super().form_valid(form)
 
 
-def cart_detail(request):
-    cart = Cart(request)
+class CartAddView(RedirectView):
+    """
+    Представление, совершающее добавление товара в корзину
+    и переход на страницу корзины
+    """
 
-    if request.method == 'POST':
-        form = OrderCreateForm(request.POST)
+    def get(self, request, *args, **kwargs):
+        cart = Cart(request)
+        product = get_object_or_404(Product, pk=kwargs['product_pk'])
 
-        if form.is_valid():
-            customer_email = form.cleaned_data['customer_email']
+        product.preview = product.photos.filter(is_preview=True)[0].photo
 
-            if not Customer.objects.filter(email=customer_email).exists():
-                Customer.objects.create(email=customer_email)
+        if product.discounted_price:
+            product.old_price = product.price
+            product.price = product.discounted_price
 
-            request.session['customer_email'] = customer_email
-            return redirect(reverse('payment:process'))
+        cart.add(product)
 
-    order_form = OrderCreateForm()
-    return render(request,
-                  'cart/cart_detail.html',
-                  {'cart': cart, 'order_form': order_form})
+        return redirect('cart:cart_detail')
+
+
+class CartRemoveView(RedirectView):
+    """
+    Представление, совершающее удаление товара из корзины
+    и переход на страницу корзины
+    """
+
+    def get(self, request, *args, **kwargs):
+        cart = Cart(request)
+        product = get_object_or_404(Product, pk=kwargs['product_pk'])
+        cart.remove(product)
+
+        return redirect('cart:cart_detail')

@@ -1,10 +1,10 @@
 from django.urls import path
-from . import views
+from .views import PaymentProcessView, PaymentDoneView, PaymentCanceledView
 
 app_name = 'payment'
 
 urlpatterns = [
-    path('process/', views.payment_process, name='process'),
-    path('done/', views.payment_done, name='done'),
-    path('canceled/', views.payment_canceled, name='canceled'),
+    path('process/', PaymentProcessView.as_view(), name='process'),
+    path('done/', PaymentDoneView.as_view(), name='done'),
+    path('canceled/', PaymentCanceledView.as_view(), name='canceled'),
 ]

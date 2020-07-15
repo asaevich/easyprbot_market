@@ -4,6 +4,11 @@ from orders.models import SalesStatistic
 
 
 def update_sales_statistic(sender, instance, created, **kwargs):
+    """
+    Обработчик сигнала, срабатывающего после сохранения объекта модели
+    товара. Обновляет кол-во товара в наличие в записи
+    статистики автора данного товара
+    """
     # Если товар создан впервые и для него включено отображение на сайте
     if created and instance.is_available:
         # Если это первый товар данного автора,

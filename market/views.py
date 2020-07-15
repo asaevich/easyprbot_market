@@ -1,12 +1,14 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.http import Http404
+from django.views.generic.base import TemplateView
 from django.core.paginator import Paginator
 from .models import Mask, Filter, Category
 from .forms import ProductFilterForm
 
 
 def product_list(request, product_type_slug, category_slug=None):
+    """Представление, отображающее список товаров"""
     selected_category = None
     categories = Category.objects.all()
 
@@ -61,6 +63,10 @@ def product_list(request, product_type_slug, category_slug=None):
 
 
 def product_detail(request, product_type_slug, category_slug, product_pk):
+    """
+    Представление, отображающее детальную информацию о конкретном товаре,
+    а также список товаров из выбранной категории
+    """
     selected_category = None
 
     if product_type_slug == 'mask':
@@ -104,5 +110,5 @@ def product_detail(request, product_type_slug, category_slug, product_pk):
     return render(request, 'market/product-detail.html', context)
 
 
-def order_product(request):
-    return render(request, 'market/order-product.html')
+class OrderProductView(TemplateView):
+    template_name = 'market/order-product.html'

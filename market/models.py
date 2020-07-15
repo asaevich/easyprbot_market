@@ -6,6 +6,7 @@ from datetime import date
 
 
 class Category(models.Model):
+    """Модель категории товара"""
     name = models.CharField('Категория',
                             max_length=50, unique=True,
                             blank=False,
@@ -24,6 +25,7 @@ class Category(models.Model):
 
 
 class Creator(models.Model):
+    """Модель создателя товара"""
     nickname = models.CharField('Создатель',
                                 max_length=50,
                                 unique=True,
@@ -39,6 +41,7 @@ class Creator(models.Model):
 
 
 class Product(models.Model):
+    """Модель товара"""
     is_available = models.BooleanField('Отображается', default=True)
     disabled_date = models.DateField('Товар снят с публикации',
                                      null=True,
@@ -106,6 +109,7 @@ class Product(models.Model):
 
 
 class ProductPhoto(models.Model):
+    """Модель фотографии, прикрепленной к товару"""
     photo = models.ImageField('Загрузка фото',
                               upload_to='products/',
                               null=False,
@@ -125,12 +129,14 @@ class ProductPhoto(models.Model):
 
 
 class Mask(Product):
+    """Модель масок (частный случай товара)"""
     class Meta:
         verbose_name = 'Маска'
         verbose_name_plural = 'Маски'
 
 
 class Filter(Product):
+    """Модель фильтров (частный случай товара)"""
     class Meta:
         verbose_name = 'Фильтр'
         verbose_name_plural = 'Фильтры'

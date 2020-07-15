@@ -2,6 +2,11 @@ from market.apps import MarketConfig
 
 
 def market(request):
+    """
+    Контекстный процессор, добавляющий в каждый контекст запроса
+    GET-параметры для корректного отображения страниц, а также
+    имя приложения market для отображения в админ. панеле
+     """
     context = {}
     context['parameters'] = ''
     context['app_name'] = MarketConfig.name

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.conf import settings
+from easyprbot_market.settings import ADMIN_LIST_PER_PAGE
 from django.db import models
 from django.contrib.admin.widgets import AdminFileWidget
 from django.utils.html import mark_safe
@@ -13,11 +13,12 @@ admin.site.site_header = 'Панель администратора'
 admin.site.index_title = 'Администрирование'
 
 
-class CustomModelAdmin(admin.ModelAdmin):
-    list_per_page = settings.LIST_PER_PAGE
-
-
 class AdminImageWidget(AdminFileWidget):
+    """
+    Переопределенный виджет, отображающий изображение в админ. панеле
+    при его добавление в модель
+    """
+
     def render(self, name, value, attrs=None, renderer=None):
         output = []
 
@@ -49,7 +50,7 @@ class ProductPhotoInline(admin.StackedInline):
 
 
 @admin.register(Mask, Filter)
-class ProductAdmin(CustomModelAdmin):
+class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'creator', 'get_price', 'is_available')
     inlines = [ProductPhotoInline, ]
     filter_horizontal = ('category',)
@@ -63,6 +64,7 @@ class ProductAdmin(CustomModelAdmin):
             'fields': ('category', 'creator')
         }),
     )
+    list_per_page = ADMIN_LIST_PER_PAGE
 
     def save_model(self, request, obj, form, change):
         update_fields = []
@@ -103,5 +105,5 @@ class ProductAdmin(CustomModelAdmin):
 
 
 @admin.register(Category)
-class CategoryAdmin(CustomModelAdmin):
+class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}

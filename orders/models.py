@@ -5,6 +5,7 @@ from market.models import Product, Creator, Mask
 
 
 class Customer(models.Model):
+    """Модель покупателя товаров """
     email = models.EmailField('Покупатель',
                               unique=True,
                               blank=False,
@@ -19,6 +20,7 @@ class Customer(models.Model):
 
 
 class Order(models.Model):
+    """Модель заказа, оформленного покупателем"""
     number = models.AutoField(primary_key=True, verbose_name='Номер заказа')
     customer = models.ForeignKey(Customer,
                                  verbose_name='Покупатель',
@@ -32,11 +34,13 @@ class Order(models.Model):
         return f'Заказ {self.pk}'
 
     def get_amount(self):
+        """" Метод, возвращающий полную сумму заказа"""
         return sum(item.price for item in self.items.all())
     get_amount.short_description = 'Сумма'
 
 
 class OrderItem(models.Model):
+    """"Модель элемента заказа, оформленного покупателем"""
     order = models.ForeignKey(Order,
                               related_name='items',
                               on_delete=models.CASCADE)
@@ -53,6 +57,10 @@ class OrderItem(models.Model):
         return ''
 
     def product_link(self):
+        """
+        Метод, формирующий для каждого товара ссылку
+        на страницу его редактирования в админ. панеле
+        """
         if Mask.objects.filter(pk=self.product.pk).exists():
             url = reverse('admin:market_mask_change', args=(self.product.pk,))
         else:
@@ -63,6 +71,7 @@ class OrderItem(models.Model):
 
 
 class SalesStatistic(models.Model):
+    """Модель статистики по продажам и наличию товаров каждого автора"""
     author = models.ForeignKey(Creator,
                                verbose_name='Автор',
                                on_delete=models.PROTECT)
@@ -75,6 +84,8 @@ class SalesStatistic(models.Model):
         verbose_name_plural = 'Статистика продаж'
 
     def save(self, *args, **kwargs):
+        # Если был удален или снят с отображения на сайте последний товар
+        # данного автора, то удаляем запись статистики о нем
         if not self.product_amount:
             self.delete()
         else:

@@ -5,7 +5,7 @@ from .models import Order
 
 @task
 def order_paid(order_pk):
-    """Задача отправки email-уведомлений при успешном оформлении заказа."""
+    """Задача отправки email-уведомлений при успешном оформлении заказа"""
     order = Order.objects.get(pk=order_pk)
     subject = f'@Easyprbot. Заказ №{order.pk}'
     products = ''

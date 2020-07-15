@@ -1,5 +1,5 @@
 from django.contrib import admin
-from market.admin import CustomModelAdmin
+from easyprbot_market.settings import ADMIN_LIST_PER_PAGE
 from .models import Customer, Order, OrderItem, SalesStatistic
 
 
@@ -13,10 +13,11 @@ class OrderItemInline(admin.StackedInline):
 
 
 @admin.register(Order)
-class OrderAdmin(CustomModelAdmin):
+class OrderAdmin(admin.ModelAdmin):
     list_display = ('number', 'customer', 'get_amount')
     readonly_fields = ('number', 'customer', 'get_amount')
     inlines = [OrderItemInline]
+    list_per_page = ADMIN_LIST_PER_PAGE
 
     def has_add_permission(self, request):
         return False
@@ -26,10 +27,11 @@ class OrderAdmin(CustomModelAdmin):
 
 
 @admin.register(SalesStatistic)
-class SalesStatisticAdmin(CustomModelAdmin):
+class SalesStatisticAdmin(admin.ModelAdmin):
     list_display = ('author', 'sold', 'cash_amount', 'product_amount')
     list_display_links = None
     readonly_fields = ('author', 'sold', 'cash_amount', 'product_amount')
+    list_per_page = ADMIN_LIST_PER_PAGE
 
     def has_add_permission(self, request):
         return False
