@@ -27,9 +27,9 @@ class OrderAdmin(CustomModelAdmin):
 
 @admin.register(SalesStatistic)
 class SalesStatisticAdmin(CustomModelAdmin):
-    list_display = ('author', 'sold', 'amount', 'in_stock')
+    list_display = ('author', 'sold', 'cash_amount', 'product_amount')
     list_display_links = None
-    readonly_fields = ('author', 'sold', 'amount', 'in_stock')
+    readonly_fields = ('author', 'sold', 'cash_amount', 'product_amount')
 
     def has_add_permission(self, request):
         return False

@@ -64,6 +64,10 @@ class Product(models.Model):
                                  null=True,
                                  blank=True)
     category = models.ManyToManyField(Category, verbose_name='Категория')
+    creator = models.ForeignKey(Creator,
+                                verbose_name='Создатель',
+                                on_delete=models.PROTECT,
+                                related_name='products')
 
     class Meta:
         ordering = ['name']
@@ -121,21 +125,12 @@ class ProductPhoto(models.Model):
 
 
 class Mask(Product):
-    creator = models.ForeignKey(Creator,
-                                verbose_name='Создатель маски',
-                                on_delete=models.PROTECT)
-
     class Meta:
-
-        verbose_name = 'Маску'
+        verbose_name = 'Маска'
         verbose_name_plural = 'Маски'
 
 
 class Filter(Product):
-    creator = models.ForeignKey(Creator,
-                                verbose_name='Создатель фильтра',
-                                on_delete=models.PROTECT)
-
     class Meta:
         verbose_name = 'Фильтр'
         verbose_name_plural = 'Фильтры'

@@ -3,11 +3,9 @@ from django.conf import settings
 from django.db import models
 from django.contrib.admin.widgets import AdminFileWidget
 from django.utils.html import mark_safe
-from market.models import (Product, Mask, Filter, Creator,
+from market.models import (Mask, Filter, Creator,
                            Category, ProductPhoto)
 
-
-admin.site.register(Product)
 admin.site.register(Creator)
 admin.site.register(ProductPhoto)
 
@@ -65,6 +63,16 @@ class ProductAdmin(CustomModelAdmin):
             'fields': ('category', 'creator')
         }),
     )
+
+    def save_model(self, request, obj, form, change):
+        update_fields = []
+
+        if change:
+            if form.initial['is_available'] != form.cleaned_data['is_available']:
+                update_fields.append('is_available')
+
+        obj.save(update_fields=update_fields)
+        super().save_model(request, obj, form, change)
 
     def get_fieldsets(self, request, obj=None):
         fieldsets = super(ProductAdmin, self).get_fieldsets(request, obj)

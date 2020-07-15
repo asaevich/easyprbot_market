@@ -1,4 +1,3 @@
-from decimal import Decimal
 from django.conf import settings
 from market.models import Product
 
@@ -37,7 +36,7 @@ class Cart(object):
         self.save()
 
     def get_total_price(self):
-        return sum(Decimal(item['price']) for item in self.cart.values())
+        return sum(float(item['price']) for item in self.cart.values())
 
     def clear(self):
         del self.session[settings.CART_SESSION_ID]
@@ -58,7 +57,7 @@ class Cart(object):
             cart[str(product.id)]['product'] = product
 
         for item in cart.values():
-            item['price'] = Decimal(item['price'])
+            item['price'] = float(item['price'])
             yield item
 
     def __len__(self):

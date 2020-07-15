@@ -67,9 +67,15 @@ class SalesStatistic(models.Model):
                                verbose_name='Автор',
                                on_delete=models.PROTECT)
     sold = models.IntegerField('Продажи', null=False)
-    amount = models.FloatField('Сумма', null=False)
-    in_stock = models.IntegerField('Товара в наличии', null=False)
+    cash_amount = models.FloatField('Сумма', null=False)
+    product_amount = models.IntegerField('Товара в наличии', null=False)
 
     class Meta:
         verbose_name = 'Статистика продаж'
         verbose_name_plural = 'Статистика продаж'
+
+    def save(self, *args, **kwargs):
+        if not self.product_amount:
+            self.delete()
+        else:
+            super(SalesStatistic, self).save(*args, **kwargs)
