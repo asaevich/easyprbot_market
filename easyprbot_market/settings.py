@@ -58,6 +58,15 @@ MIDDLEWARE = [
     'admin_reorder.middleware.ModelAdminReorder',
 ]
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    }
+}
+
 ROOT_URLCONF = 'easyprbot_market.urls'
 
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
@@ -146,6 +155,7 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
+
 
 # Настройки приложения admin_reorder
 # Изменение порядка вывода моделей в админ. панеле
