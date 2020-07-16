@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, get_object_or_404
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic.base import RedirectView
 from django.views.generic.edit import FormView
 from market.models import Product
@@ -61,5 +61,8 @@ class CartRemoveView(RedirectView):
         cart = Cart(request)
         product = get_object_or_404(Product, pk=kwargs['product_pk'])
         cart.remove(product)
+
+        if len(cart) == 0:
+            return redirect(reverse('market:product_list', args=('mask',)))
 
         return redirect('cart:cart_detail')

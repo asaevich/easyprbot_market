@@ -1,13 +1,13 @@
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_delete
 from .models import Product
 from orders.models import SalesStatistic
 
 
-def update_sales_statistic(sender, instance, created, **kwargs):
+def update_statistic_post_save(sender, instance, created, **kwargs):
     """
     Обработчик сигнала, срабатывающего после сохранения объекта модели
-    товара. Обновляет кол-во товара в наличие в записи
-    статистики автора данного товара
+    товара. Обновляет кол-во товара в наличие в записи статистики
+    автора данного товара
     """
     # Если товар создан впервые и для него включено отображение на сайте
     if created and instance.is_available:
@@ -36,11 +36,13 @@ def update_sales_statistic(sender, instance, created, **kwargs):
                 # отображением на сайте и это единственный товар данного
                 # создателя, то объект статистики не был создан, при создании
                 # товара и его необходимо добавить
-                if not SalesStatistic.objects.filter(author=instance.creator).exists():
-                    statistic = SalesStatistic.objects.create(author=instance.creator,
-                                                              sold=0,
-                                                              cash_amount=0,
-                                                              product_amount=1)
+                if not SalesStatistic.objects.filter(
+                        author=instance.creator).exists():
+                    statistic = SalesStatistic.objects.create(
+                        author=instance.creator,
+                        sold=0,
+                        cash_amount=0,
+                        product_amount=1)
                 # Если объект статистики уже существовал
                 else:
                     statistic = SalesStatistic.objects.get(
@@ -55,6 +57,19 @@ def update_sales_statistic(sender, instance, created, **kwargs):
             statistic.save()
 
 
-# Коннектим сигнал к каждому наследнику класса Product
+def update_statistic_post_delete(sender, instance, using, **kwargs):
+    """
+    Обработчик сигнала, срабатывающего после удаления объекта модели
+    товара. Обновляет кол-во товара в наличие в записи статистики
+    автора данного товара
+    """
+    if instance.is_available:
+        statistic = SalesStatistic.objects.get(author=instance.creator)
+        statistic.product_amount -= 1
+        statistic.save()
+
+
+# Коннектим сигналы к каждому наследнику класса Product
 for subclass in Product.__subclasses__():
-    post_save.connect(update_sales_statistic, sender=subclass)
+    post_save.connect(update_statistic_post_save, sender=subclass)
+    post_delete.connect(update_statistic_post_delete, sender=subclass)

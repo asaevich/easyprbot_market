@@ -29,7 +29,7 @@ class AdminImageWidget(AdminFileWidget):
             output.append(
                 f'<a href="{image_url}" target="_blank">'
                 f'<img src="{image_url}" alt="{file_name}" width="150"'
-                f'height="150" style="object-fit: cover; float: right;"/> </a>')
+                f'height="150" style="object-fit: cover; float: right;"/></a>')
 
         output.append(super(AdminFileWidget, self).render(
             name, value, attrs, renderer))
